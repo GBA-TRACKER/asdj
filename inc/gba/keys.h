@@ -7,8 +7,6 @@
 #ifndef GBA_HEAD_KEYS
 #define GBA_HEAD_KEYS
 
-//#include "inc/gba/regs.h"
-
 #define KEY_A 0x0001
 #define KEY_B 0x0002
 #define KEY_SELECT 0x0004
@@ -20,8 +18,6 @@
 #define KEY_R 0x0100
 #define KEY_L 0x0200
 #define KEY_MASK 0x03FF
-
-//#define keyDown(key) (~REG_KEYS & key)
 
 #endif
 

@@ -7,11 +7,11 @@
 #ifndef GBA_HEAD
 #define GBA_HEAD
 
-#include "inc/gba/regs.h"
-#include "inc/gba/video.h"
-#include "inc/gba/sprites.h"
-#include "inc/gba/keys.h"
-#include "inc/gba/macros.h"
+#include "regs.h"
+#include "video.h"
+#include "sprites.h"
+#include "keys.h"
+#include "macros.h"
 
 #endif
 

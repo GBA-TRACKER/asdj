@@ -14,7 +14,7 @@ typedef struct tagOAMEntry
 	unsigned short uAttr1;
 	unsigned short uAttr2;
 	unsigned short uAttr3;
-} OAMEntry, *pOAMEntry
+} OAMEntry, *pOAMEntry;
 
 
 // Sprite rotation data:
@@ -28,8 +28,9 @@ typedef struct tagRotData
 	unsigned short uPc;
 	unsigned short uFiller4[3];
 	unsigned short uPd;
-} RotData, *pRotData
+} RotData, *pRotData;
 
+#define C_SPRITES 128
 
 // Attribute 0:
 #define ATR0_ROTATION_FLAG 0x0100

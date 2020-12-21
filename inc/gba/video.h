@@ -7,8 +7,6 @@
 #ifndef GBA_HEAD_VIDEO
 #define GBA_HEAD_VIDEO
 
-//#include "inc/gba/regs.h"
-
 // Screen resolution:
 #define SCREEN_WIDTH 240
 #define SCREEN_HEIGHT 160
@@ -34,10 +32,6 @@
 #define BG2_ENABLE 0x0400 // Background 2.
 #define BG3_ENABLE 0x0800 // Background 3.
 #define OBJ_ENABLE 0x1000 // Sprite layer.
-
-// Macros:
-//#define WaitForVSync() while(REG_VCOUNT != 160);
-//#define SetMode(mode) REG_DISPCNT = (mode)
 
 #endif
 
