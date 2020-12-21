@@ -10,7 +10,7 @@ void moveSprite (pOAMEntry pSprite, int x, int y);
 void hideAllSprites (pOAMEntry pSprite);
 void copySpritesToOAM (pOAMEntry pSprite);
 
-OAMEntry g_pSprite[128];
+OAMEntry g_pSprite[C_SPRITES];
 
 int main() {
 	
@@ -90,7 +90,6 @@ void copySpritesToOAM (pOAMEntry pSprite) {
 		/*for (iSprite = 0; iSprite < C_SPRITES*4; iSprite++) {
 			OAM_Memory[iSprite] = 0;
 		}*/
-		hideAllSprites(pSprite);
 		memset(OAM_Memory, 0, C_SPRITES*8);
 	} else {
 		
