@@ -10,6 +10,7 @@
 #include "regs.h"
 #include "video.h"
 #include "sprites.h"
+#include "sound.h"
 #include "keys.h"
 #include "macros.h"
 

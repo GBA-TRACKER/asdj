@@ -18,6 +18,10 @@
 #define REG_DISPCNT *(unsigned short*) 0x04000000 // Display control mode.
 #define REG_VCOUNT *(volatile unsigned short*) 0x04000006 // Vertical sync control.
 
+#define REG_SNDCNT_L *(unsigned short*) 0x04000080 // Sound control L (Legacy).
+#define REG_SNDCNT_H *(unsigned short*) 0x04000082 // Sound control H (GBA).
+#define REG_SNDCNT_X *(unsigned long*) 0x04000084 // Sound control X.
+
 #define REG_KEYS *(volatile unsigned short*) 0x04000130 // Key input register.
 
 #endif
