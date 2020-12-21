@@ -3,6 +3,7 @@
 *.geany
 
 ## Ignore binaries:
+*.o
 *.elf
 *.bin
 *.gba
