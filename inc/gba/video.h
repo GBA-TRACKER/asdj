@@ -1,7 +1,7 @@
 //
 // inc/gba/video.h
 //
-// Video Memory Addresses
+// GBA Video Flags
 //
 
 #ifndef GBA_HEAD_VIDEO

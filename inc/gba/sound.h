@@ -1,7 +1,7 @@
 //
 // inc/gba/sound.h
 //
-// Sound Chip Flags
+// GBA Sound Chip Flags
 //
 
 #ifndef GBA_HEAD_SOUND

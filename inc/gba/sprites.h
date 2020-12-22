@@ -1,7 +1,7 @@
 //
 // inc/gba/sprites.h
 //
-// GBA Sprite Flags and Structures
+// GBA Sprite Flags, Constants, and Structures
 //
 
 #ifndef GBA_HEAD_SPRITES
@@ -30,7 +30,8 @@ typedef struct tagRotData
 	unsigned short uPd;
 } RotData, *pRotData;
 
-#define C_SPRITES 128
+#define C_SPRITES 128 // Total count of sprites.
+#define CB_OAM C_SPRITES*8 // Total size of OAM, in bytes.
 
 // Attribute 0:
 #define ATR0_ROTATION_FLAG 0x0100
