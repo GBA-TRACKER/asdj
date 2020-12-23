@@ -95,7 +95,7 @@ ${OBJS}: %.o : %.c
 
 .IGNORE: clean
 clean:
-	rm -vf ${OBJS}
-	rm -vf *.elf
+	@rm -vf ${OBJS}
+	@rm -vf *.elf
 
 ## EOF
