@@ -11,9 +11,9 @@
 #include "point2d.h"
 #include <string.h>
 
-UPoint2D8 moveSprite (pOAMEntry pSprite, int x, int y);
-void setSpritePos (pOAMEntry pSprite, int x, int y);
-UPoint2D8 getSpritePos (pOAMEntry pSprite);
+pUPoint2D8 moveSprite (pOAMEntry pSprite, s8 x, s8 y);
+void setSpritePos (pOAMEntry pSprite, u8 x, u8 y);
+pUPoint2D8 getSpritePos (pOAMEntry pSprite);
 void hideAllSprites (pOAMEntry pSprite);
 void copySpritesToOAM (pOAMEntry pSprite);
 

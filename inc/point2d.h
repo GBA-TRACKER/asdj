@@ -7,28 +7,30 @@
 #ifndef POINT2D_HEAD
 #define POINT2D_HEAD
 
+#include "gba/types.h"
+
 typedef struct tagPoint2D8
 {
-	char x;
-	char y;
+	s8 x;
+	s8 y;
 } Point2D8, *pPoint2D8;
 
 typedef struct tagUPoint2D8
 {
-	unsigned char x;
-	unsigned char y;
+	u8 x;
+	u8 y;
 } UPoint2D8, *pUPoint2D8;
 
 typedef struct tagPoint2D16
 {
-	short x;
-	short y;
+	s16 x;
+	s16 y;
 } Point2D16, *pPoint2D16;
 
 typedef struct tagUPoint2D16
 {
-	unsigned short x;
-	unsigned short y;
+	u16 x;
+	u16 y;
 } UPoint2D16, *pUPoint2D16;
 
 #endif

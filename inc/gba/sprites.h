@@ -7,27 +7,29 @@
 #ifndef GBA_HEAD_SPRITES
 #define GBA_HEAD_SPRITES
 
+#include "types.h"
+
 // OAM Entry:
 typedef struct tagOAMEntry
 {
-	unsigned short uAttr0;
-	unsigned short uAttr1;
-	unsigned short uAttr2;
-	unsigned short uAttr3;
+	u16 uAttr0;
+	u16 uAttr1;
+	u16 uAttr2;
+	u16 uAttr3;
 } OAMEntry, *pOAMEntry;
 
 
 // Sprite rotation data:
 typedef struct tagRotData
 {
-	unsigned short uFiller1[3];
-	unsigned short uPa;
-	unsigned short uFiller2[3];
-	unsigned short uPb;
-	unsigned short uFiller3[3];
-	unsigned short uPc;
-	unsigned short uFiller4[3];
-	unsigned short uPd;
+	u16 uFiller1[3];
+	u16 uPa;
+	u16 uFiller2[3];
+	u16 uPb;
+	u16 uFiller3[3];
+	u16 uPc;
+	u16 uFiller4[3];
+	u16 uPd;
 } RotData, *pRotData;
 
 #define C_SPRITES 128 // Total count of sprites.

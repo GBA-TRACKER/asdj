@@ -7,6 +7,7 @@
 #ifndef GBA_HEAD
 #define GBA_HEAD
 
+#include "types.h"
 #include "regs.h"
 #include "video.h"
 #include "sprites.h"

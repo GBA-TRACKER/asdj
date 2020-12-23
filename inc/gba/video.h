@@ -19,7 +19,7 @@
 #define MODE_4 0x0004 // Screen mode 4.
 #define MODE_5 0x0005 // Screen mode 5.
 
-#define backbuffer 0x10
+#define backbuffer 0x0010
 
 #define H_BLANK_OAM 0x0020 // Flag allowing OAM to be updated during H-blank.
 
@@ -32,6 +32,10 @@
 #define BG2_ENABLE 0x0400 // Background 2.
 #define BG3_ENABLE 0x0800 // Background 3.
 #define OBJ_ENABLE 0x1000 // Sprite layer.
+
+#define VIDF_MODE_MASK 0x0007
+#define VIDF_LAYER_MASK 0x1F00
+#define VIDF_MASK 0x1F77
 
 #endif
 

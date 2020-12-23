@@ -8,21 +8,25 @@
 
 // Move a sprite relative to its current position.
 // Returns the new position.
-UPoint2D8 moveSprite (pOAMEntry pSprite, int x, int y) {
+pUPoint2D8 moveSprite (pOAMEntry pSprite, s8 x, s8 y) {
 	
-	UPoint2D8 upnt = getSpritePos(pSprite);
+	// Get current sprite position.
+	pUPoint2D8 puxyPos = getSpritePos(pSprite);
 	
-	upnt.x += x;
-	upnt.y += y;
+	// Offset by new values.
+	puxyPos->x += x;
+	puxyPos->y += y;
 	
-	setSpritePos(pSprite, upnt.x, upnt.y);
+	// Set new position.
+	setSpritePos(pSprite, puxyPos->x, puxyPos->y);
 	
-	return upnt;
+	// Return the updated position.
+	return puxyPos;
 	
 }
 
 // Set a sprite's position absolutely.
-void setSpritePos (pOAMEntry pSprite, int x, int y) {
+void setSpritePos (pOAMEntry pSprite, u8 x, u8 y) {
 	
 	// Nullify current position.
 	pSprite->uAttr1 = pSprite->uAttr1 & ATR1_MASK;
@@ -37,19 +41,22 @@ void setSpritePos (pOAMEntry pSprite, int x, int y) {
 }
 
 // Get a sprite's position.
-UPoint2D8 getSpritePos (pOAMEntry pSprite) {
+pUPoint2D8 getSpritePos (pOAMEntry pSprite) {
 	
-	UPoint2D8 upnt;
-	upnt.x = pSprite->uAttr1 & (!ATR1_MASK);
-	upnt.y = pSprite->uAttr0 & (!ATR0_MASK);
-	return upnt;
+	UPoint2D8 uxyPos = {
+		pSprite->uAttr1 & (!ATR1_MASK),
+		pSprite->uAttr0 & (!ATR0_MASK)
+	};
+	// uxyPos.x = pSprite->uAttr1 & (!ATR1_MASK);
+	// uxyPos.y = pSprite->uAttr0 & (!ATR0_MASK);
+	return &uxyPos;
 	
 }
 
 // Move all sprites offscreen.
 void hideAllSprites (pOAMEntry pSprite) {
 	
-	unsigned short iSprite;
+	u16 iSprite;
 	
 	for (iSprite = 0; iSprite < C_SPRITES; iSprite++) {
 		setSpritePos(&pSprite[iSprite], SCREEN_WIDTH, SCREEN_HEIGHT);
@@ -60,16 +67,16 @@ void hideAllSprites (pOAMEntry pSprite) {
 // Copy all sprites from pSprite to OAM.
 void copySpritesToOAM (pOAMEntry pSprite) {
 	
-	unsigned short iSprite;
+	u16 iSprite;
 	
 	// Clear OAM if sprite pointer is null.
 	if (!(pSprite)) {
-		memset(OAM_Memory, 0, C_SPRITES*8);
+		memset(OAM_Memory, 0, CB_OAM);
 	} else {
 		
 		// Create temporary pointer to sprite data.
-		unsigned short* pSpriteTemp;
-		pSpriteTemp = (unsigned short*)pSprite;
+		pu16 pSpriteTemp = (pu16)pSprite;
+		//pSpriteTemp = (pu16)pSprite;
 		
 		// Copy sprite data to OAM.
 		for (iSprite = 0; iSprite < C_SPRITES*4; iSprite++) {
