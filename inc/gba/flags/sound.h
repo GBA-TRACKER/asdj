@@ -1,11 +1,11 @@
 //
-// inc/gba/sound.h
+// inc/gba/flags/sound.h
 //
 // GBA Sound Chip Flags
 //
 
-#ifndef GBA_HEAD_SOUND
-#define GBA_HEAD_SOUND
+#ifndef GBA_HEAD_FLAGS_SOUND
+#define GBA_HEAD_FLAGS_SOUND
 
 #define SND_ENABLED 0x00000080
 

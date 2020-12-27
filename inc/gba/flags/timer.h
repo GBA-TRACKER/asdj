@@ -1,11 +1,11 @@
 //
-// inc/gba/timer.h
+// inc/gba/flags/timer.h
 //
 // GBA Timer Control Flags
 //
 
-#ifndef GBA_HEAD_TIMER
-#define GBA_HEAD_TIMER
+#ifndef GBA_HEAD_FLAGS_TIMER
+#define GBA_HEAD_FLAGS_TIMER
 
 #define TIMF_PRESCALE_SYS 0x0000
 #define TIMF_PRESCALE_64 0x0001

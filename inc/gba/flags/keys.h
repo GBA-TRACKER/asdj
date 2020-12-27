@@ -1,11 +1,11 @@
 //
-// inc/gba/keys.h
+// inc/gba/flags/keys.h
 //
-// GBA Button IDs
+// GBA Keypad Flags.
 //
 
-#ifndef GBA_HEAD_KEYS
-#define GBA_HEAD_KEYS
+#ifndef GBA_HEAD_FLAGS_KEYS
+#define GBA_HEAD_FLAGS_KEYS
 
 #define KEY_A 0x0001 // A button.
 #define KEY_B 0x0002 // B button.

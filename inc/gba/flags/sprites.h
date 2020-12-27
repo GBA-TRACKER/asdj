@@ -1,13 +1,13 @@
 //
-// inc/gba/sprites.h
+// inc/gba/flags/sprites.h
 //
 // GBA Sprite Flags, Constants, and Structures
 //
 
-#ifndef GBA_HEAD_SPRITES
-#define GBA_HEAD_SPRITES
+#ifndef GBA_HEAD_FLAGS_SPRITES
+#define GBA_HEAD_FLAGS_SPRITES
 
-#include "types.h"
+#include "../types.h"
 
 // OAM Entry:
 typedef struct tagOAMEntry
