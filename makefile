@@ -23,7 +23,7 @@ endif
 
 include ${DEVKITARM}/gba_rules
 
-PATH := ${DEVKITARM}/bin:${PATH}
+PATH := ${DEVKITPRO}/tools/bin:${DEVKITARM}/bin:${PATH}
 
 ## ---------------------------------------------------------------------
 ## Setup project details.
@@ -39,6 +39,7 @@ LIBS     :=
 LIBDIRS  := ${LIBGBA}
 
 OBJS     := ${TARGET}.o
+OBJS     += ${SOURCES}/bgctl.o
 OBJS     += ${SOURCES}/oamctl.o
 
 ## ---------------------------------------------------------------------
@@ -69,32 +70,42 @@ CXXFLAGS := ${CFLAGS} -fno-rtti -fno-exceptions
 
 ASFLAGS  := ${ARCH}
 
+ROMTITLE ?= 'ASDj v0.0'
+GAMECODE ?= 'CASE'
+MAKECODE ?= 'DJ'
+REVCODE  ?= 00
+
 ## ---------------------------------------------------------------------
 ## Compilation rules.
 ## ---------------------------------------------------------------------
 
-#.INTERMEDIATE: ${OBJS} ${TARGET}.elf
+.INTERMEDIATE: ${TARGET}.elf
 .DELETE_ON_ERROR: ${OBJS} ${TARGET}.elf
 
+## Fix GBA header.
 build: ${TARGET}.gba
+	-@echo 'Fixing GBA ROM header...'
+	gbafix $< -t${ROMTITLE} -c${GAMECODE} -m${MAKECODE} -r${REVCODE}
 
 ## Strip binaries.
 ${TARGET}.gba: ${TARGET}.elf
-	-@echo 'Stripping symbols.'
+	-@echo 'Stripping symbols...'
 	${OBJCOPY} -v -O binary $< $@
 
 ## Link objects.
 ${TARGET}.elf: ${TARGET}.o ${OBJS}
-	-@echo 'Linking objects.'
+	-@echo 'Linking objects...'
 	${LD} $^ $(LDFLAGS) -o $@
 
 ## Compile objects.
 ${OBJS}: %.o : %.c
-	-@echo 'Compiling objects: ${OBJS}'
+	-@echo 'Compiling objects: ${OBJS}...'
 	${CC} ${CFLAGS} -c $< -o $@
 
+## Remove unnecessary binary files.
 .IGNORE: clean
 clean:
+	-@echo 'Cleaning up unnecessary files...'
 	@rm -vf ${OBJS}
 	@rm -vf *.elf
 
