@@ -1,27 +1,27 @@
 //
 // obj/oamctl.c
 //
-// OAM/Sprite Control Object.
+// OAM/Sprite Control Module.
 //
 
 #include "../inc/oamctl.h"
 
 // Move a sprite relative to its current position.
 // Returns the new position.
-pUPoint2D8 moveSprite (pOAMEntry pSprite, s8 x, s8 y) {
+UPoint2D8 moveSprite (pOAMEntry pSprite, s8 x, s8 y) {
 	
 	// Get current sprite position.
-	pUPoint2D8 puxyPos = getSpritePos(pSprite);
+	UPoint2D8 uxyPos = getSpritePos(pSprite);
 	
 	// Offset by new values.
-	puxyPos->x += x;
-	puxyPos->y += y;
+	uxyPos.x += x;
+	uxyPos.y += y;
 	
 	// Set new position.
-	setSpritePos(pSprite, puxyPos->x, puxyPos->y);
+	setSpritePos(pSprite, uxyPos.x, uxyPos.y);
 	
 	// Return the updated position.
-	return puxyPos;
+	return uxyPos;
 	
 }
 
@@ -41,7 +41,7 @@ void setSpritePos (pOAMEntry pSprite, u8 x, u8 y) {
 }
 
 // Get a sprite's position.
-pUPoint2D8 getSpritePos (pOAMEntry pSprite) {
+UPoint2D8 getSpritePos (pOAMEntry pSprite) {
 	
 	UPoint2D8 uxyPos = {
 		pSprite->uAttr1 & (!ATR1_MASK),
@@ -49,7 +49,7 @@ pUPoint2D8 getSpritePos (pOAMEntry pSprite) {
 	};
 	// uxyPos.x = pSprite->uAttr1 & (!ATR1_MASK);
 	// uxyPos.y = pSprite->uAttr0 & (!ATR0_MASK);
-	return &uxyPos;
+	return uxyPos;
 	
 }
 
