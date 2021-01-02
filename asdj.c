@@ -4,21 +4,23 @@
 // Advanced Sound Dj - Main Module
 //
 
-#include "inc/gba/gba.h"
-#include "inc/oamctl.h"
-
-void waitTime (u32 length);
-void copyBgPalette (pu16 pbgPalette);
-void copyBackground (pu16 pbgData);
+#include "asdj.h"
 
 // Shared module level variables:
 OAMEntry s_pSprite[C_SPRITES]; // Temporary buffer for all sprites.
 
-int main() {
+// Main routine:
+int main () {
 	
-	// Init. code:
-	hideAllSprites(s_pSprite);
+	// Initialization code:
+	// Clear sprites in memory.
+	memset(s_pSprite, 0, (C_SPRITES * sizeof(OAMEntry)));
+	
+	// Set video mode.
 	setVideoMode(MODE_4 | BG2_ENABLE | OBJ_ENABLE | OBJ_MAP_1D);
+	
+	// Hide all sprites from view.
+	hideAllSprites(s_pSprite);
 	
 	// Main loop code:
 	while(1) {
@@ -34,12 +36,12 @@ int main() {
 	
 }
 
+// Waits a specified length of time in milliseconds.
 void waitTime (u32 length) {
 	
 	// Divide length into milliseconds and seconds.
-	u32 nSec, nMs;
-	nMs = length % 1000;
-	nSec = (length - nMs) / 1000;
+	u32 nMs = length % 1000;
+	u32 nSec = (length - nMs) / 1000;
 	
 	// Enable timers.
 	// Timer 2 on every 256th cycle, and timer 3 when timer 2 overflows.
@@ -57,28 +59,6 @@ void waitTime (u32 length) {
 	
 	// Disable the timers.
 	REG_TM2CNT = REG_TM3CNT = 0;
-	
-}
-
-void copyBgPalette (pu16 pbgPalette) {
-	
-	//u16 iPalette;
-	
-	/*for (iPalette = 0; iPalette < 256; iPalette++) {
-		BG_PalMem[iPalette] = pbgPalette[iPalette];
-	}*/
-	memcpy(BG_PalMem, pbgPalette, 512);
-	
-}
-
-void copyBackground (pu16 pbgData) {
-	
-	//u16 uLoop;
-	
-	/*for (uLoop = 0; uLoop < (120 * SCREEN_HEIGHT); uLoop++) {
-		FrontBuff[uLoop] = pbgData[uLoop];
-	}*/
-	memcpy(VRAM, pbgData, (120 * SCREEN_HEIGHT)*2);
 	
 }
 
