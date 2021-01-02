@@ -7,8 +7,9 @@
 #include "inc/gba/gba.h"
 #include "inc/oamctl.h"
 
-void copyBgPalette (unsigned short* pbgPalette);
-void copyBackground (unsigned short* pbgData);
+void waitTime (u32 length);
+void copyBgPalette (pu16 pbgPalette);
+void copyBackground (pu16 pbgData);
 
 // Shared module level variables:
 OAMEntry s_pSprite[C_SPRITES]; // Temporary buffer for all sprites.
