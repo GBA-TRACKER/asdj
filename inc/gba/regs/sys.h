@@ -1,11 +1,11 @@
 //
 // inc/gba/regs/int.h
 //
-// GBA Interrupt Register Definitions.
+// GBA System Register Definitions.
 //
 
-#ifndef GBA_HEAD_REGS_INT
-#define GBA_HEAD_REGS_INT
+#ifndef GBA_HEAD_REGS_SYS
+#define GBA_HEAD_REGS_SYS
 
 #include "../types.h"
 
@@ -16,6 +16,6 @@
 #define REG_POSTFLG *(pu8) 0x04000300 // Post boot flag.
 #define REG_HALTCNT *(volatile pu8) 0x04000301 // Power down control (write only).
 
-#endif /* GBA_HEAD_REGS_INT */
+#endif /* GBA_HEAD_REGS_SYS */
 
 // EOF

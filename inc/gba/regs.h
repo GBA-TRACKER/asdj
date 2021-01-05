@@ -16,7 +16,7 @@
 #include "regs/timer.h"
 #include "regs/serial.h"
 #include "regs/keys.h"
-#include "regs/int.h"
+#include "regs/sys.h"
 
 // Define memory ranges:
 #define BG_PalMem ((pu16) 0x05000000) // Background palette.
