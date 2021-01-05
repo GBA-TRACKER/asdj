@@ -27,6 +27,8 @@
 #define OAM_Data ((pu16) 0x06010000) // Bitmapped sprite data.
 #define OAM_Memory ((pu16) 0x07000000) // Sprite co-ords, size, etc (1Kb total).
 
+#define SRAM ((pu8) 0x0E000000)
+
 #endif /* GBA_HEAD_REGS */
 
 // EOF

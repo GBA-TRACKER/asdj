@@ -1,7 +1,7 @@
 //
 // inc/gba/macros.h
 //
-// Preprocessor Macros.
+// GBA Preprocessor Macros.
 //
 
 #ifndef GBA_HEAD_MACRO
@@ -17,6 +17,6 @@
 #define keyDown(key) (~REG_KEYINPUT & key)
 #define RGB(r, g, b) (u16)(r | (g << 5) | (b << 10))
 
-#endif
+#endif /* GBA_HEAD_MACRO */
 
 // EOF

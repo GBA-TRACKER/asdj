@@ -1,24 +1,27 @@
 //
 // inc/gba/gba.h
 //
-// GBA Header File
+// GBA Hardware Header File
 //
 
 #ifndef GBA_HEAD
 #define GBA_HEAD
 
-#include "types.h"
+// Include other headers:
+#include "types.h" // Typedefs.
+#include "regs.h" // Registers.
+#include "flags.h" // Flags.
+#include "macros.h" // Macros.
 
-#include "regs.h"
+// Default definitions:
 
-#include "flags.h"
+// Screen resolution:
+#define SCREEN_WIDTH 240
+#define SCREEN_HEIGHT 160
 
-/*#include "video.h"
-#include "sprites.h"
-#include "sound.h"
-#include "keys.h"*/
-#include "macros.h"
+#define C_SPRITES 128 // Total count of sprites.
+#define CB_OAM (C_SPRITES*8) // Total size of OAM, in bytes.
 
-#endif
+#endif /* GBA_HEAD */
 
 // EOF
