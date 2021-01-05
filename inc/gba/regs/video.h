@@ -61,6 +61,6 @@
 #define REG_BLDALPHA *(pu16) 0x04000052 // Alpha blending coefficients.
 #define REG_BLDY *(pu16) 0x04000054 // Fade-in/out/brightness coefficient.
 
-#endif
+#endif /* GBA_HEAD_REGS_VIDEO */
 
 // EOF

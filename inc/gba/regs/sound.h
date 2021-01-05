@@ -38,6 +38,6 @@
 #define REG_FIFO_A *(pu32) 0x040000A0 // FIFO A.
 #define REG_FIFO_B *(pu32) 0x040000A4 // FIFO B.
 
-#endif
+#endif /* GBA_HEAD_REGS_SOUND */
 
 // EOF

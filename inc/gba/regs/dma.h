@@ -33,6 +33,6 @@
 #define REG_DMA3CNT_L *(pu16) 0x040000DC // DMA 3 word count.
 #define REG_DMA3CNT_H *(pu16) 0x040000DE // DMA 3 control (read/write).
 
-#endif
+#endif /* GBA_HEAD_REGS_DMA */
 
 // EOF

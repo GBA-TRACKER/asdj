@@ -21,6 +21,6 @@
 #define REG_TM2D *(volatile pu16) 0x04000108
 #define REG_TM3D *(volatile pu16) 0x0400010C
 
-#endif
+#endif /* GBA_HEAD_REGS_TIMER */
 
 // EOF

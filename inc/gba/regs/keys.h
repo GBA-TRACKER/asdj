@@ -14,6 +14,6 @@
 
 #define REG_KEYS REG_KEYINPUT
 
-#endif
+#endif /* GBA_HEAD_REGS_KEYS */
 
 // EOF
