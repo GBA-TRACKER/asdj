@@ -32,7 +32,7 @@ int main () {
 		copySpritesToOAM(s_pSprite);
 	}
 	
-	return 0;
+	return EXIT_SUCCESS;
 	
 }
 
