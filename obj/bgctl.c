@@ -4,7 +4,11 @@
 // Background Control Module.
 //
 
+// Include module header:
 #include "../inc/obj/bgctl.h"
+
+// Include used C headers:
+#include <string.h>
 
 void copyBgPalette (pu16 pbgPalette) {
 	

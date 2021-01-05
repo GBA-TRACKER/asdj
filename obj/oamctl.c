@@ -4,11 +4,15 @@
 // OAM/Sprite Control Module.
 //
 
+// Include module header:
 #include "../inc/obj/oamctl.h"
+
+// Include used C headers:
+#include <string.h>
 
 // Move a sprite relative to its current position.
 // Returns the new position.
-UPoint2D8 moveSprite (pOAMEntry pSprite, s8 x, s8 y) {
+UPoint2D8 moveSprite (POAM_ENTRY pSprite, s8 x, s8 y) {
 	
 	// Get current sprite position.
 	UPoint2D8 uxyPos = getSpritePos(pSprite);
@@ -26,7 +30,7 @@ UPoint2D8 moveSprite (pOAMEntry pSprite, s8 x, s8 y) {
 }
 
 // Set a sprite's position absolutely.
-void setSpritePos (pOAMEntry pSprite, u8 x, u8 y) {
+void setSpritePos (POAM_ENTRY pSprite, u8 x, u8 y) {
 	
 	// Nullify current position.
 	pSprite->uAttr1 = pSprite->uAttr1 & ATR1_MASK;
@@ -41,7 +45,7 @@ void setSpritePos (pOAMEntry pSprite, u8 x, u8 y) {
 }
 
 // Get a sprite's position.
-UPoint2D8 getSpritePos (pOAMEntry pSprite) {
+UPoint2D8 getSpritePos (POAM_ENTRY pSprite) {
 	
 	UPoint2D8 uxyPos = {
 		pSprite->uAttr1 & (!ATR1_MASK),
@@ -54,7 +58,7 @@ UPoint2D8 getSpritePos (pOAMEntry pSprite) {
 }
 
 // Move all sprites offscreen.
-void hideAllSprites (pOAMEntry pSprite) {
+void hideAllSprites (POAM_ENTRY pSprite) {
 	
 	u16 iSprite;
 	
@@ -65,7 +69,7 @@ void hideAllSprites (pOAMEntry pSprite) {
 }
 
 // Copy all sprites from pSprite to OAM.
-void copySpritesToOAM (pOAMEntry pSprite) {
+void copySpritesToOAM (POAM_ENTRY pSprite) {
 	
 	u16 iSprite;
 	
