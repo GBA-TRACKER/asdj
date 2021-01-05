@@ -4,8 +4,8 @@
 // 2D Point Structures
 //
 
-#ifndef POINT2D_HEAD
-#define POINT2D_HEAD
+#ifndef _POINT2D_H_
+#define _POINT2D_H_
 
 #include "gba/types.h"
 
@@ -51,6 +51,6 @@ typedef struct tagUPoint2D32
 	u32 y;
 } UPoint2D32, *pUPoint2D32;
 
-#endif
+#endif /* _POINT2D_H_ */
 
 // EOF

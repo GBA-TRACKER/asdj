@@ -7,14 +7,14 @@
 #include "asdj.h"
 
 // Shared module level variables:
-OAMEntry s_pSprite[C_SPRITES]; // Temporary buffer for all sprites.
+OAM_ENTRY s_pSprite[C_SPRITES]; // Temporary buffer for all sprites.
 
 // Main routine:
 int main () {
 	
 	// Initialization code:
 	// Clear sprites in memory.
-	memset(s_pSprite, 0, (C_SPRITES * sizeof(OAMEntry)));
+	memset(s_pSprite, 0, (C_SPRITES * sizeof(OAM_ENTRY)));
 	
 	// Set video mode.
 	setVideoMode(MODE_4 | BG2_ENABLE | OBJ_ENABLE | OBJ_MAP_1D);
@@ -59,6 +59,38 @@ void waitTime (u32 length) {
 	
 	// Disable the timers.
 	REG_TM2CNT = REG_TM3CNT = 0;
+	
+}
+
+void sendFlashCmd (u8 uCmd) {
+	
+	*(pu8)0x0E005555 = 0xAA;
+	*(pu8)0x0E002AAA = 0x55;
+	*(pu8)0x0E005555 = uCmd;
+	
+}
+
+u16 getFlashType () {
+	
+	u8 uDev, uMan;
+	
+	// Set 8 clk waitstate.
+	REG_WAITCNT |= 0x3;
+	
+	// Enter ID mode.
+	/* *(pu8)0x0E005555 = 0xAA;
+	*(pu8)0x0E002AAA = 0x55;
+	*(pu8)0x0E005555 = 0x90;*/
+	sendFlashCmd(0x90);
+	
+	// Get device ID and manufacturer.
+	uDev = *(pu8)0x0E000001;
+	uMan = *(pu8)0x0E000000;
+	
+	// Exit ID mode.
+	sendFlashCmd(0xF0);
+	
+	return ((u16)(uDev << 8)) | uMan;
 	
 }
 

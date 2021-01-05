@@ -19,6 +19,7 @@
 
 // Include C headers:
 #include <stdlib.h>
+#include <string.h>
 
 // Define types and structures:
 
