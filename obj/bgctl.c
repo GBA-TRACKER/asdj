@@ -4,7 +4,7 @@
 // Background Control Module.
 //
 
-#include "../inc/bgctl.h"
+#include "../inc/obj/bgctl.h"
 
 void copyBgPalette (pu16 pbgPalette) {
 	

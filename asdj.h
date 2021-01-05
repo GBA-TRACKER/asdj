@@ -14,8 +14,8 @@
 #include "inc/errcodes.h"
 
 // Include object headers:
-#include "inc/bgctl.h"
-#include "inc/oamctl.h"
+#include "inc/obj/bgctl.h"
+#include "inc/obj/oamctl.h"
 
 // Include C headers:
 #include <stdlib.h>

@@ -4,7 +4,7 @@
 // OAM/Sprite Control Module.
 //
 
-#include "../inc/oamctl.h"
+#include "../inc/obj/oamctl.h"
 
 // Move a sprite relative to its current position.
 // Returns the new position.
