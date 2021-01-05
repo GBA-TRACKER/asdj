@@ -7,10 +7,6 @@
 #ifndef GBA_HEAD_FLAGS_VIDEO
 #define GBA_HEAD_FLAGS_VIDEO
 
-// Screen resolution:
-#define SCREEN_WIDTH 240
-#define SCREEN_HEIGHT 160
-
 // ---------------------------------------------------------------------
 // Flags for REG_DISPCNT.
 // ---------------------------------------------------------------------

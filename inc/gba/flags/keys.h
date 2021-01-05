@@ -22,6 +22,6 @@
 #define KEY_BTNS 0x030F // Buttons mask.
 #define KEY_DPAD 0x00F0 // D-Pad mask.
 
-#endif
+#endif /* GBA_HEAD_FLAGS_KEYS */
 
 // EOF

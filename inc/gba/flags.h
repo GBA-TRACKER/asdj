@@ -9,6 +9,8 @@
 
 #include "types.h"
 
+// TODO: Write dma.h, serial.h, & int.h.
+// Include flag definition files for subsystems:
 #include "flags/video.h"
 #include "flags/sprites.h"
 #include "flags/sound.h"
@@ -18,6 +20,6 @@
 #include "flags/keys.h"
 //#include "flags/int.h"
 
-#endif
+#endif /* GBA_HEAD_FLAGS */
 
 // EOF
