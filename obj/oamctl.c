@@ -45,7 +45,7 @@ void setSpritePos (POAM_ENTRY pSprite, u8 x, u8 y) {
 }
 
 // Get a sprite's position.
-UPoint2D8 getSpritePos (POAM_ENTRY pSprite) {
+UPoint2D8 getSpritePos (const POAM_ENTRY pSprite) {
 	
 	UPoint2D8 uxyPos = {
 		pSprite->uAttr1 & (!ATR1_MASK),
@@ -69,23 +69,40 @@ void hideAllSprites (POAM_ENTRY pSprite) {
 }
 
 // Copy all sprites from pSprite to OAM.
-void copySpritesToOAM (POAM_ENTRY pSprite) {
-	
-	u16 iSprite;
+void copySpritesToOAM (const POAM_ENTRY pSprite) {
 	
 	// Clear OAM if sprite pointer is null.
-	if (!(pSprite)) {
+	if (pSprite == NULL) {
 		memset(OAM_Memory, 0, CB_OAM);
 	} else {
 		
 		// Create temporary pointer to sprite data.
 		pu16 pSpriteTemp = (pu16)pSprite;
-		//pSpriteTemp = (pu16)pSprite;
+		
+		u16 iSprite;
 		
 		// Copy sprite data to OAM.
 		for (iSprite = 0; iSprite < C_SPRITES*4; iSprite++) {
 			OAM_Memory[iSprite] = pSpriteTemp[iSprite];
 		}
+	}
+	
+}
+
+// Copies a sixteen color sprite palette to a given subpalette index.
+void copyObjPalette (const pu16 pPalette, const u8 iIndex) {
+	
+	
+	if (pPalette == NULL) {
+		memset(&OBJ_PalMem[iIndex * CB_OBJPAL], 0, CB_OBJPAL);
+	} else {
+		
+		/* u16 iEntry;
+		for (iEntry = 0; iEntry < 16; iEntry++) {
+			OBJ_PalMem[iIndex + iEntry] = pPalette[iEntry];
+		} */
+		memcpy(&OBJ_PalMem[iIndex * CB_OBJPAL], pPalette, CB_OBJPAL);
+	
 	}
 	
 }
