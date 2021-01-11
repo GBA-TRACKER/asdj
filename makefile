@@ -64,7 +64,6 @@ ifdef INCLUDE
 	CFLAGS += ${INCLUDE}
 endif
 
-##LDFLAGS  := -g ${ARCH} -Wl,-Map,$(notdir $@).map
 LDFLAGS  := ${CFLAGS} ${SPECS}
 
 CXXFLAGS := ${CFLAGS} -fno-rtti -fno-exceptions
@@ -107,7 +106,6 @@ ${OBJS}: %.o : %.c
 .IGNORE: clean
 clean:
 	-@echo 'Cleaning up intermediary files...'
-##	@rm -vf ${OBJS} ${TARGET}.elf
 	@rm -vf ${SOURCES}/*.o *.o *.elf
 
 ## EOF
