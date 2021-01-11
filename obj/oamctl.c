@@ -37,10 +37,10 @@ void setSpritePos (POAM_ENTRY pSprite, u8 x, u8 y) {
 	pSprite->uAttr0 = pSprite->uAttr0 & ATR0_MASK;
 	
 	// Move sprite X position; protecting attribute 1 flags.
-	pSprite->uAttr1 = pSprite->uAttr1 | ((!ATR1_MASK) & x);
+	pSprite->uAttr1 = pSprite->uAttr1 | (~ATR1_MASK & x);
 	
 	// Move sprite Y position; protecting attribute 0 flags.
-	pSprite->uAttr0 = pSprite->uAttr0 | ((!ATR0_MASK) & y);
+	pSprite->uAttr0 = pSprite->uAttr0 | (~ATR0_MASK & y);
 	
 }
 
@@ -48,11 +48,9 @@ void setSpritePos (POAM_ENTRY pSprite, u8 x, u8 y) {
 UPoint2D8 getSpritePos (const POAM_ENTRY pSprite) {
 	
 	UPoint2D8 uxyPos = {
-		pSprite->uAttr1 & (!ATR1_MASK),
-		pSprite->uAttr0 & (!ATR0_MASK)
+		pSprite->uAttr1 & ~ATR1_MASK,
+		pSprite->uAttr0 & ~ATR0_MASK
 	};
-	// uxyPos.x = pSprite->uAttr1 & (!ATR1_MASK);
-	// uxyPos.y = pSprite->uAttr0 & (!ATR0_MASK);
 	return uxyPos;
 	
 }
@@ -60,8 +58,7 @@ UPoint2D8 getSpritePos (const POAM_ENTRY pSprite) {
 // Move all sprites offscreen.
 void hideAllSprites (POAM_ENTRY pSprite) {
 	
-	u16 iSprite;
-	
+	u8 iSprite;
 	for (iSprite = 0; iSprite < C_SPRITES; iSprite++) {
 		setSpritePos(&pSprite[iSprite], SCREEN_WIDTH, SCREEN_HEIGHT);
 	}
@@ -92,17 +89,10 @@ void copySpritesToOAM (const POAM_ENTRY pSprite) {
 // Copies a sixteen color sprite palette to a given subpalette index.
 void copyObjPalette (const pu16 pPalette, const u8 iIndex) {
 	
-	
 	if (pPalette == NULL) {
 		memset(&OBJ_PalMem[iIndex * CB_OBJPAL], 0, CB_OBJPAL);
 	} else {
-		
-		/* u16 iEntry;
-		for (iEntry = 0; iEntry < 16; iEntry++) {
-			OBJ_PalMem[iIndex + iEntry] = pPalette[iEntry];
-		} */
 		memcpy(&OBJ_PalMem[iIndex * CB_OBJPAL], pPalette, CB_OBJPAL);
-	
 	}
 	
 }
