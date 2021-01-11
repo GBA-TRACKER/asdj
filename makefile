@@ -29,7 +29,7 @@ PATH := ${DEVKITPRO}/tools/bin:${DEVKITARM}/bin:${PATH}
 ## Setup project details.
 ## ---------------------------------------------------------------------
 TARGET   := $(shell basename ${CURDIR})
-BUILD    := 
+BUILD    := build
 SOURCES  := obj
 DATA     := 
 INCLUDES := inc
@@ -85,29 +85,29 @@ REVCODE  ?= 00
 
 ## Fix GBA header.
 build: ${TARGET}.gba
-	-@echo 'Fixing GBA ROM header...'
+	-@echo 'Fixing GBA ROM header in "$<"...'
 	gbafix $< -t${ROMTITLE} -c${GAMECODE} -m${MAKECODE} -r${REVCODE}
 
-## Strip binaries.
+## Strip intermediary binary, and convert to GBA ROM format.
 ${TARGET}.gba: ${TARGET}.elf
-	-@echo 'Stripping symbols...'
+	-@echo -e 'Stripping symbols from "$<"... ("$<"->"$@")'
 	${OBJCOPY} -v -O binary $< $@
 
-## Link objects.
+## Link objects into intermediary binary.
 ${TARGET}.elf: ${TARGET}.o ${OBJS}
-	-@echo 'Linking objects...'
+	-@echo -e 'Linking objects... ("$^"->"$@")'
 	${LD} $^ $(LDFLAGS) -o $@
 
 ## Compile objects.
 ${OBJS}: %.o : %.c
-	-@echo 'Compiling objects: ${OBJS}...'
+	-@echo -e 'Compiling object "$@"... ("$<"->"$@")'
 	${CC} ${CFLAGS} -c $< -o $@
 
 ## Remove unnecessary binary files.
 .IGNORE: clean
 clean:
-	-@echo 'Cleaning up unnecessary files...'
-	@rm -vf ${OBJS}
-	@rm -vf *.elf
+	-@echo 'Cleaning up intermediary files...'
+##	@rm -vf ${OBJS} ${TARGET}.elf
+	@rm -vf ${SOURCES}/*.o *.o *.elf
 
 ## EOF
