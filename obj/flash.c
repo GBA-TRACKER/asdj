@@ -29,8 +29,6 @@ PFLASH_INFO flashGetType () {
 	flashSendCmd(FLCMD_IDMODE);
 	
 	// Get device and manufacturer ID.
-	// u8 uDev = flashAddr(0x0001);
-	// u8 uMan = flashAddr(0x0000);
 	g_fiFlashInfo.uDevId = flashAddr(0x0001);
 	g_fiFlashInfo.uManId = flashAddr(0x0000);
 	
@@ -102,11 +100,6 @@ PFLASH_INFO flashGetType () {
 		// Clear the flash info table if no chip is found.
 		memset(&g_fiFlashInfo, 0, sizeof(FLASH_INFO));
 	}
-	
-	
-	// Place device ID in MSB, and manufacturer in LSB.
-	// g_uFlashId = ((u16)(uDev << 8)) | uMan;
-	// return g_uFlashId;
 	
 	// Return a pointer to the flash info table.
 	return &g_fiFlashInfo;
