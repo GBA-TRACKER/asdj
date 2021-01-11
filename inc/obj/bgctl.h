@@ -11,8 +11,8 @@
 #include "../gba/gba.h"
 
 // Declare functions used in module:
-void copyBgPalette (pu16 pbgPalette);
-void copyBackground (pu16 pbgData);
+void copyBgPalette (const pu16 pbgPalette);
+void copyBackground (const pu16 pbgData);
 
 #endif /* _BGCTL_H_ */
 
