@@ -21,6 +21,7 @@
 
 #define C_SPRITES 128 // Total count of sprites.
 #define CB_OAM (C_SPRITES*8) // Total size of OAM, in bytes.
+#define CB_OBJPAL (16 * sizeof(u16)) // Total size of a single 16-color sprite palette.
 
 #endif /* GBA_HEAD */
 
