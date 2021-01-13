@@ -32,8 +32,8 @@
 #define ATR1_MASK 0xFE00
 
 // OAM Attribute 2:
-#define ATR2_PRIORITY(n) ((n) << 10)
-#define ATR2_PALETTE(n) ((n) << 12)
+#define ATR2_PRIORITY(pri) (u16)((pri & 0x0003) << 10)
+#define ATR2_PALETTE(pal) (u16)((pal & 0x000F) << 12)
 
 #endif /* GBA_HEAD_FLAGS_SPRITES */
 

@@ -70,7 +70,26 @@
 
 #define LY_MASK 0x00FF
 
-#endif
+// ---------------------------------------------------------------------
+// Flags for REG_BGxCNT.
+// ---------------------------------------------------------------------
+
+#define BG_PRIORITY(pri) (u16)(pri & 0x0003)
+#define BG_CHARBASE(base) (u16)((base & 0x0003) << 2)
+#define BG_MOSAIC 0x0040
+#define BG_256COL 0x0080
+#define BG_SCREENBASE(base) (u16)((base & 0x001F) << 8)
+#define BG_DISPAREAWRAP 0x2000
+#define BG_SCREENSIZE(size) (u16)((size & 0x0003) << 14)
+#define BG_MASK 0xFFCF
+
+// ---------------------------------------------------------------------
+// Flags for REG_BGxHOFS and REG_BGxVOFS.
+// ---------------------------------------------------------------------
+
+#define BG_OFFSET(ofs) (u16)(ofs & 0x01FF)
+
+#endif /* GBA_HEAD_FLAGS_VIDEO */
 
 // EOF
 
