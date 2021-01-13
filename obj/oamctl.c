@@ -12,7 +12,7 @@
 
 // Move a sprite relative to its current position.
 // Returns the new position.
-UPoint2D8 moveSprite (POAM_ENTRY pSprite, s8 x, s8 y) {
+UPoint2D8 moveSprite (POAM_ENTRY pSprite, const s8 x, const s8 y) {
 	
 	// Get current sprite position.
 	UPoint2D8 uxyPos = getSpritePos(pSprite);
@@ -30,7 +30,7 @@ UPoint2D8 moveSprite (POAM_ENTRY pSprite, s8 x, s8 y) {
 }
 
 // Set a sprite's position absolutely.
-void setSpritePos (POAM_ENTRY pSprite, u8 x, u8 y) {
+void setSpritePos (POAM_ENTRY pSprite, const u8 x, const u8 y) {
 	
 	// Nullify current position.
 	pSprite->uAttr1 = pSprite->uAttr1 & ATR1_MASK;
@@ -59,8 +59,20 @@ UPoint2D8 getSpritePos (const POAM_ENTRY pSprite) {
 void hideAllSprites (POAM_ENTRY pSprite) {
 	
 	u8 iSprite;
-	for (iSprite = 0; iSprite < C_SPRITES; iSprite++) {
+	for (iSprite = 0; iSprite < C_SPRITES; iSprite++)
 		setSpritePos(&pSprite[iSprite], SCREEN_WIDTH, SCREEN_HEIGHT);
+	
+}
+
+// Copy attributes to a specific entry in OAM.
+void copyAttrToOAM (const POAM_ENTRY pSprite, const u8 iIndex) {
+	
+	if (iIndex >= C_SPRITES) return;
+	
+	if (pSprite == NULL) {
+		memset(&OAM_Memory[iIndex * sizeof(OAM_ENTRY)], 0, sizeof(OAM_ENTRY));
+	} else {
+		memcpy(&OAM_Memory[iIndex * sizeof(OAM_ENTRY)], pSprite, sizeof(OAM_ENTRY));
 	}
 	
 }
@@ -69,7 +81,7 @@ void hideAllSprites (POAM_ENTRY pSprite) {
 void copySpritesToOAM (const POAM_ENTRY pSprite) {
 	
 	// Clear OAM if sprite pointer is null.
-	if (pSprite == NULL) {
+	/* if (pSprite == NULL) {
 		memset(OAM_Memory, 0, CB_OAM);
 	} else {
 		
@@ -82,7 +94,10 @@ void copySpritesToOAM (const POAM_ENTRY pSprite) {
 		for (iSprite = 0; iSprite < C_SPRITES*4; iSprite++) {
 			OAM_Memory[iSprite] = pSpriteTemp[iSprite];
 		}
-	}
+	} */
+	u8 iSprite;
+	for (iSprite = 0; iSprite < C_SPRITES; iSprite++)
+		copyAttrToOAM(&pSprite[iSprite], iSprite);
 	
 }
 

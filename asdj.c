@@ -6,9 +6,9 @@
 
 #include "asdj.h"
 
-// Default 16-color sprite palette.
-const u16 SPRITE_PALETTE[16] = {
-	0x7FFF, 0x0000, 0x0010, 0x0200, 0x7FFF, 0x4210, 0x001F, 0x03E0,
+// Default 16-color palette.
+const u16 DEFAULT_PALETTE[16] = {
+	0x0000, 0x7FFF, 0x0010, 0x0200, 0x7FFF, 0x4210, 0x001F, 0x03E0,
 	0x0210, 0x4000, 0x4010, 0x4200, 0x03FF, 0x7C00, 0x7C1F, 0x7FE0
 };
 
@@ -35,18 +35,21 @@ int main () {
 	memset(s_pSprite, 0, (C_SPRITES * sizeof(OAM_ENTRY)));
 	
 	// Set video mode.
-	setVideoMode(MODE_0 | OBJ_ENABLE | OBJ_MAP_1D);
+	setVideoMode(MODE_0 | BG0_ENABLE | OBJ_ENABLE | OBJ_MAP_1D);
+	REG_BG0CNT = (BG_PRIORITY(3) | BG_CHARBASE(0) | BG_SCREENBASE(0) | BG_SCREENSIZE(0));
 	
 	// Hide all sprites from view.
 	hideAllSprites(s_pSprite);
 	
-	// Initialize sprite palette.
-	copyObjPalette((const pu16)SPRITE_PALETTE, 0);
+	// Initialize palettes.
+	copyObjPalette((const pu16)DEFAULT_PALETTE, 0);
 	
-	u8 iSprData;
-	for (iSprData = 0; iSprData < 32; iSprData++) {
-		OAM_Data[iSprData] = SPRITE_CURSOR[iSprData];
-	}
+	// Copy sprite data.
+	memcpy(OAM_Data, SPRITE_CURSOR, sizeof(SPRITE_CURSOR));
+	
+	s_pSprite[0].uAttr0 = (ATR0_COLOR16 | ATR0_SQUARE);
+	s_pSprite[0].uAttr1 = (ATR1_SIZE8);
+	s_pSprite[0].uAttr2 = (ATR2_PRIORITY(0) | ATR2_PALETTE(0));
 	
 	// Main loop code:
 	while(1) {
@@ -55,7 +58,8 @@ int main () {
 		waitForVSync();
 		
 		// Copy the temporary sprite buffer to OAM.
-		copySpritesToOAM(s_pSprite);
+		// copySpritesToOAM(s_pSprite);
+		copyAttrToOAM(&s_pSprite[0], 0);
 	}
 	
 	return EXIT_SUCCESS;
