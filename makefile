@@ -8,6 +8,7 @@
 ## ---------------------------------------------------------------------
 ## Set phony & default targets, and override the default suffix rules.
 ## ---------------------------------------------------------------------
+
 .PHONY: build clean
 .SUFFIXES:
 
@@ -17,6 +18,7 @@
 ## Make sure DEVKITARM is set, and load the rules for GBA & set the
 ## path.
 ## ---------------------------------------------------------------------
+
 ifeq ($(strip ${DEVKITARM}),)
 	$(error "DEVKITARM not set. Please set it in your environment.")
 endif
@@ -28,6 +30,7 @@ PATH := ${DEVKITPRO}/tools/bin:${DEVKITARM}/bin:${PATH}
 ## ---------------------------------------------------------------------
 ## Setup project details.
 ## ---------------------------------------------------------------------
+
 TARGET   := $(shell basename ${CURDIR})
 BUILD    := build
 SOURCES  := obj
