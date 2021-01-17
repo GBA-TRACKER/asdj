@@ -1,11 +1,34 @@
-//
-// asdj.c
-//
-// Advanced Sound Dj - Main Module
-//
+/*
+ * asdj.c
+ * 
+ * Advanced Sound Dj - Main Module
+ * 
+ * Copyright 2020-2021 ASDj Dev Team
+ * 
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ * 
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
+ * MA 02110-1301, USA.
+ * 
+ */
 
 #include "asdj.h"
 
+// Include C headers:
+#include <stdlib.h>
+#include <string.h>
+
+/*
 // Default 16-color palette.
 const u16 DEFAULT_PALETTE[16] = {
 	0x0000, 0x7FFF, 0x0010, 0x0200, 0x7FFF, 0x4210, 0x001F, 0x03E0,
@@ -23,6 +46,7 @@ const u8 SPRITE_CURSOR[32] = {
 	0x00, 0x00, 0x11, 0x00,
 	0x00, 0x10, 0x01, 0x00
 };
+*/
 
 // Shared module level variables:
 OAM_ENTRY s_pSprite[128]; // Temporary buffer for all sprites.
@@ -43,9 +67,11 @@ int main () {
 	
 	// Initialize palettes.
 	copyObjPalette16((const pu16)DEFAULT_PALETTE, 0);
+	copyBgPalette16((const pu16)DEFAULT_PALETTE, 0);
 	
 	// Copy sprite data.
-	memcpy(OAM_Data, SPRITE_CURSOR, sizeof(SPRITE_CURSOR));
+	//memcpy(OAM_Data, SPRITE_CURSOR, sizeof(SPRITE_CURSOR));
+	copySpriteData((const pu8)SPRITE_CURSOR, 0);
 	
 	s_pSprite[0].uAttr0 = (ATR0_COLOR16 | ATR0_SQUARE);
 	s_pSprite[0].uAttr1 = (ATR1_SIZE8);
