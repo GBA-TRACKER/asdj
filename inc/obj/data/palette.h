@@ -27,10 +27,10 @@
 
 #include "../../gba/gba.h"
 
-extern const u16 DEFAULT_PALETTE[16];
-extern const u16 DEF_PALETTE2[16];
-extern const u16 DEF_PALETTE3[16];
-extern const u16 MONO_PALETTE[16];
+extern const u16 PALETTE_DEFAULT[16];
+extern const u16 PALETTE_DEFAULT2[16];
+extern const u16 PALETTE_GREYSCALE[16];
+extern const u16 PALETTE_MONO[16];
 
 #endif /* _PALETTES_H_ */
 
