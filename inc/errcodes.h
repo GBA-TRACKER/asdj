@@ -20,16 +20,18 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA 02110-1301, USA.
  * 
- * 
  */
 
 #ifndef _ASDJ_ERRCODES_H_
 #define _ASDJ_ERRCODES_H_
 
+typedef unsigned short int ERRORID;
+
 enum ASDJ_ERROR {
 	ERR_SUCCESS,
 	ERR_OUTOFMEMORY,
 	ERR_NULLPTR,
+	ERR_BADINDEX,
 	ERR_BADSAVE,
 	ERR_NODATA
 };
