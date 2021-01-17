@@ -1,8 +1,27 @@
-//
-// inc/obj/saves.h
-//
-//
-//
+/*
+ * inc/obj/saves.h
+ * 
+ * Advanced Sound Dj - Saves Module Header
+ * 
+ * Copyright 2020-2021 ASDJ Dev Team
+ * 
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ * 
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
+ * MA 02110-1301, USA.
+ * 
+ * 
+ */
 
 #ifndef _SAVES_H_
 #define _SAVES_H_
@@ -40,9 +59,6 @@ typedef struct tagSAVE_HDR
 	u8 cSongs; // Count of saved songs.
 	PSONG_HDR pSong; // Pointer to song headers.
 } SAVE_HDR, *PSAVE_HDR;
-
-u16 loadSongHeader (PSONG_HDR pSong);
-u16 loadSaveHeader (PSAVE_HDR pSave);
 
 #endif /* _SAVES_H_ */
 
