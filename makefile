@@ -32,20 +32,24 @@ PATH := ${DEVKITPRO}/tools/bin:${DEVKITARM}/bin:${PATH}
 ## ---------------------------------------------------------------------
 
 TARGET   := $(shell basename ${CURDIR})
-BUILD    := build
+BUILD    := 
 SOURCES  := obj
-DATA     := 
+DATA     := ${SOURCES}/data
 INCLUDES := inc
-INCLUDES += inc/gba
 
 LIBS     := 
-LIBDIRS  := ${LIBGBA}
+LIBDIRS  := 
+## LIBDIRS  := ${LIBGBA}
 
 OBJS     := ${TARGET}.o
+
 OBJS     += ${SOURCES}/bgctl.o
 OBJS     += ${SOURCES}/oamctl.o
 OBJS     += ${SOURCES}/palctl.o
 OBJS     += ${SOURCES}/flash.o
+
+OBJS     += ${DATA}/palette.o
+OBJS     += ${DATA}/sprite.o
 
 ## ---------------------------------------------------------------------
 ## Set flags for code generation.
@@ -110,6 +114,6 @@ ${OBJS}: %.o : %.c
 .IGNORE: clean
 clean:
 	-@echo 'Cleaning up intermediary files...'
-	@rm -vf ${SOURCES}/*.o *.o *.elf
+	@rm -vf ${SOURCES}/*.o ${DATA}/*.o *.o *.elf
 
 ## EOF
