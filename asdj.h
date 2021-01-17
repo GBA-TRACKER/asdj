@@ -38,9 +38,14 @@
 #include "inc/obj/flash.h"
 #include "inc/obj/saves.h"
 
+// Include data headers:
+#include "inc/obj/data/palette.h"
+#include "inc/obj/data/sprite.h"
+
 // Define types and structures:
 
 // Declare functions defined in main module:
+ERRORID doInit ();
 void doKeyInput ();
 void waitTime (u32 length);
 

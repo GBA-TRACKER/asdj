@@ -28,54 +28,14 @@
 #include <stdlib.h>
 #include <string.h>
 
-/*
-// Default 16-color palette.
-const u16 DEFAULT_PALETTE[16] = {
-	0x0000, 0x7FFF, 0x0010, 0x0200, 0x7FFF, 0x4210, 0x001F, 0x03E0,
-	0x0210, 0x4000, 0x4010, 0x4200, 0x03FF, 0x7C00, 0x7C1F, 0x7FE0
-};
-
-// Placeholder cursor graphic.
-const u8 SPRITE_CURSOR[32] = {
-	0x00, 0x10, 0x01, 0x00,
-	0x00, 0x00, 0x11, 0x00,
-	0x00, 0x00, 0x10, 0x01,
-	0x11, 0x11, 0x11, 0x11,
-	0x11, 0x11, 0x11, 0x11,
-	0x00, 0x00, 0x10, 0x01,
-	0x00, 0x00, 0x11, 0x00,
-	0x00, 0x10, 0x01, 0x00
-};
-*/
-
 // Shared module level variables:
-OAM_ENTRY s_pSprite[128]; // Temporary buffer for all sprites.
+OAM_ENTRY s_pSprite[128]; // Temporary buffer for all sprites attributes.
 
 // Main routine:
 int main () {
 	
-	// Initialization code:
-	// Clear sprites in memory.
-	memset(s_pSprite, 0, (cSprites * sizeof(OAM_ENTRY)));
-	
-	// Set video mode.
-	setVideoMode(MODE_0 | BG0_ENABLE | OBJ_ENABLE | OBJ_MAP_1D);
-	REG_BG0CNT = (BG_PRIORITY(3) | BG_CHARBASE(0) | BG_SCREENBASE(0) | BG_SCREENSIZE(0));
-	
-	// Hide all sprites from view.
-	hideAllSprites(s_pSprite);
-	
-	// Initialize palettes.
-	copyObjPalette16((const pu16)DEFAULT_PALETTE, 0);
-	copyBgPalette16((const pu16)DEFAULT_PALETTE, 0);
-	
-	// Copy sprite data.
-	//memcpy(OAM_Data, SPRITE_CURSOR, sizeof(SPRITE_CURSOR));
-	copySpriteData((const pu8)SPRITE_CURSOR, 0);
-	
-	s_pSprite[0].uAttr0 = (ATR0_COLOR16 | ATR0_SQUARE);
-	s_pSprite[0].uAttr1 = (ATR1_SIZE8);
-	s_pSprite[0].uAttr2 = (ATR2_PRIORITY(0) | ATR2_PALETTE(0));
+	// Initialize:
+	doInit();
 	
 	// Main loop code:
 	while(1) {
@@ -83,36 +43,77 @@ int main () {
 		// Wait for a frame to be drawn.
 		waitForVSync();
 		
-		doKeyInput();
-		
 		// Copy the temporary sprite buffer to OAM.
-		//copySpritesToOAM(s_pSprite);
 		copyAttrToOAM(&s_pSprite[0], 0);
+		
+		// Process user input.
+		doKeyInput();
 	}
 	
 	return EXIT_SUCCESS;
 	
 }
 
-void doKeyInput () {
+ERRORID doInit () {
 	
-	static UPoint2D8 uxyCurPos;
+	// Set video mode.
+	// setVideoMode(MODE_0 | BG0_ENABLE | OBJ_ENABLE | OBJ_MAP_1D);
+	REG_DISPCNT = (u16)(MODE_0 | BG0_ENABLE | OBJ_ENABLE | OBJ_MAP_1D);
 	
-	if keyDown(KEY_RIGHT) uxyCurPos.x += 1;
-	if keyDown(KEY_LEFT) uxyCurPos.x -= 1;
-	if keyDown(KEY_UP) uxyCurPos.y += 1;
-	if keyDown(KEY_DOWN) uxyCurPos.y -= 1;
+	// Set background 0 mode.
+	REG_BG0CNT = (u16)(BG_PRIORITY(3) | BG_CHARBASE(0) | BG_SCREENBASE(0) | BG_SCREENSIZE(0));
 	
-	if keyDown(KEY_A) {
-		if (s_pSprite[0].uAttr1 & ATR1_HFLIP) {
-			s_pSprite[0].uAttr1 &= ~ATR1_HFLIP;
-		} else {
-			s_pSprite[0].uAttr1 |= ATR1_HFLIP;
-		}
+	
+	// Setup temporary OAM buffer:
+	// Clear temporary buffer.
+	memset(s_pSprite, 0, (g_cSprites * sizeof(OAM_ENTRY)));
+	
+	// Fill it with default values.
+	u8 iSprite;
+	for (iSprite = 0; iSprite < g_cSprites; iSprite++) {
+		
+		// Hide all sprites offscreen.
+		setSpritePos(&s_pSprite[iSprite], SCREEN_WIDTH, SCREEN_HEIGHT);
+		
+		// Setup some default attributes.
+		s_pSprite[iSprite].uAttr0 |= (ATR0_COLOR16 | ATR0_SQUARE);
+		s_pSprite[iSprite].uAttr1 |= (ATR1_SIZE8);
+		s_pSprite[iSprite].uAttr2 |= (ATR2_PRIORITY(0) | ATR2_PALETTE(0));
 	}
 	
-	//moveSprite(&s_pSprite[0], dX, dY);
-	setSpritePos(&s_pSprite[0], uxyCurPos.x, uxyCurPos.y);
+	// Setup palettes:
+	// Copy object palettes.
+	copyObjPalette16((const pu16)PALETTE_DEFAULT, 0);
+	copyObjPalette16((const pu16)PALETTE_DEFAULT2, 1);
+	copyObjPalette16((const pu16)PALETTE_GREYSCALE, 2);
+	
+	// Copy background palettes.
+	copyBgPalette16((const pu16)PALETTE_DEFAULT, 0);
+	
+	// Copy tile data:
+	// Copy object tile data.
+	copySpriteData((const pu8)SPRITE_CURSOR, 0);
+	
+	return ERR_SUCCESS;
+	
+}
+
+void doKeyInput () {
+	
+	static Point2D8 xyDelta;
+	memset(&xyDelta, 0, sizeof(Point2D8));
+	
+	// Disallow opposing inputs.
+	if keyDown((KEY_RIGHT | KEY_LEFT)) return;
+	if keyDown((KEY_UP | KEY_DOWN)) return;
+	
+	if keyDown(KEY_RIGHT) xyDelta.x = 1;
+	if keyDown(KEY_LEFT) xyDelta.x = -1;
+	if keyDown(KEY_UP) xyDelta.y = 1;
+	if keyDown(KEY_DOWN) xyDelta.y = -1;
+	
+	moveSprite(&s_pSprite[0], xyDelta.x, xyDelta.y);
+	// setSpritePos(&s_pSprite[0], uxyCurPos.x, uxyCurPos.y);
 	
 }
 
