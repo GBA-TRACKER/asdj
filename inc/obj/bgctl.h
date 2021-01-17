@@ -10,8 +10,8 @@
 // Include GBA headers:
 #include "../gba/gba.h"
 
-// Declare functions used in module:
-void copyBgPalette (const pu16 pbgPalette);
+// Declare functions defined in module:
+// void copyBgPalette (const pu16 pbgPalette);
 void copyBackground (const pu16 pbgData);
 
 #endif /* _BGCTL_H_ */

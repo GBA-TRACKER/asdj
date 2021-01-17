@@ -16,12 +16,8 @@
 // Default definitions:
 
 // Screen resolution:
-#define SCREEN_WIDTH 240
-#define SCREEN_HEIGHT 160
-
-#define C_SPRITES 128 // Total count of sprites.
-#define CB_OAM (C_SPRITES*8) // Total size of OAM, in bytes.
-#define CB_OBJPAL (16 * sizeof(u16)) // Total size of a single 16-color sprite palette.
+#define SCREEN_WIDTH  240 // Screen width.
+#define SCREEN_HEIGHT 160 // Screen height.
 
 #endif /* GBA_HEAD */
 

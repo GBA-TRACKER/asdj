@@ -16,6 +16,8 @@
 // Include object headers:
 #include "inc/obj/bgctl.h"
 #include "inc/obj/oamctl.h"
+#include "inc/obj/palctl.h"
+#include "inc/obj/flash.h"
 
 // Include C headers:
 #include <stdlib.h>
@@ -24,6 +26,7 @@
 // Define types and structures:
 
 // Define functions in main module:
+void doKeyInput ();
 void waitTime (u32 length);
 
 #endif /* _ASDJ_H_ */

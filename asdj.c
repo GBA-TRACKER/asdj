@@ -25,14 +25,14 @@ const u8 SPRITE_CURSOR[32] = {
 };
 
 // Shared module level variables:
-OAM_ENTRY s_pSprite[C_SPRITES]; // Temporary buffer for all sprites.
+OAM_ENTRY s_pSprite[128]; // Temporary buffer for all sprites.
 
 // Main routine:
 int main () {
 	
 	// Initialization code:
 	// Clear sprites in memory.
-	memset(s_pSprite, 0, (C_SPRITES * sizeof(OAM_ENTRY)));
+	memset(s_pSprite, 0, (cSprites * sizeof(OAM_ENTRY)));
 	
 	// Set video mode.
 	setVideoMode(MODE_0 | BG0_ENABLE | OBJ_ENABLE | OBJ_MAP_1D);
@@ -42,7 +42,7 @@ int main () {
 	hideAllSprites(s_pSprite);
 	
 	// Initialize palettes.
-	copyObjPalette((const pu16)DEFAULT_PALETTE, 0);
+	copyObjPalette16((const pu16)DEFAULT_PALETTE, 0);
 	
 	// Copy sprite data.
 	memcpy(OAM_Data, SPRITE_CURSOR, sizeof(SPRITE_CURSOR));
@@ -57,12 +57,36 @@ int main () {
 		// Wait for a frame to be drawn.
 		waitForVSync();
 		
+		doKeyInput();
+		
 		// Copy the temporary sprite buffer to OAM.
-		// copySpritesToOAM(s_pSprite);
+		//copySpritesToOAM(s_pSprite);
 		copyAttrToOAM(&s_pSprite[0], 0);
 	}
 	
 	return EXIT_SUCCESS;
+	
+}
+
+void doKeyInput () {
+	
+	static UPoint2D8 uxyCurPos;
+	
+	if keyDown(KEY_RIGHT) uxyCurPos.x += 1;
+	if keyDown(KEY_LEFT) uxyCurPos.x -= 1;
+	if keyDown(KEY_UP) uxyCurPos.y += 1;
+	if keyDown(KEY_DOWN) uxyCurPos.y -= 1;
+	
+	if keyDown(KEY_A) {
+		if (s_pSprite[0].uAttr1 & ATR1_HFLIP) {
+			s_pSprite[0].uAttr1 &= ~ATR1_HFLIP;
+		} else {
+			s_pSprite[0].uAttr1 |= ATR1_HFLIP;
+		}
+	}
+	
+	//moveSprite(&s_pSprite[0], dX, dY);
+	setSpritePos(&s_pSprite[0], uxyCurPos.x, uxyCurPos.y);
 	
 }
 

@@ -44,6 +44,7 @@ LIBDIRS  := ${LIBGBA}
 OBJS     := ${TARGET}.o
 OBJS     += ${SOURCES}/bgctl.o
 OBJS     += ${SOURCES}/oamctl.o
+OBJS     += ${SOURCES}/palctl.o
 OBJS     += ${SOURCES}/flash.o
 
 ## ---------------------------------------------------------------------

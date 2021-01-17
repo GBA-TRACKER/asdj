@@ -11,7 +11,7 @@
 #include <string.h>
 
 // Copy a background palette to BG palette memory.
-void copyBgPalette (const pu16 pbgPalette) {
+/* void copyBgPalette (const pu16 pbgPalette) {
 	
 	if (pbgPalette == NULL) {
 		memset(BG_PalMem, 0, 512);
@@ -19,7 +19,7 @@ void copyBgPalette (const pu16 pbgPalette) {
 		memcpy(BG_PalMem, pbgPalette, 512);
 	}
 	
-}
+} */
 
 // Copy a background to VRAM.
 void copyBackground (const pu16 pbgData) {

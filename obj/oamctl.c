@@ -10,6 +10,8 @@
 // Include used C headers:
 #include <string.h>
 
+const u16 cSprites = 128;
+
 // Move a sprite relative to its current position.
 // Returns the new position.
 UPoint2D8 moveSprite (POAM_ENTRY pSprite, const s8 x, const s8 y) {
@@ -33,8 +35,8 @@ UPoint2D8 moveSprite (POAM_ENTRY pSprite, const s8 x, const s8 y) {
 void setSpritePos (POAM_ENTRY pSprite, const u8 x, const u8 y) {
 	
 	// Nullify current position.
-	pSprite->uAttr1 = pSprite->uAttr1 & ATR1_MASK;
-	pSprite->uAttr0 = pSprite->uAttr0 & ATR0_MASK;
+	pSprite->uAttr1 &= ATR1_MASK;
+	pSprite->uAttr0 &= ATR0_MASK;
 	
 	// Move sprite X position; protecting attribute 1 flags.
 	pSprite->uAttr1 = pSprite->uAttr1 | (~ATR1_MASK & x);
@@ -59,7 +61,7 @@ UPoint2D8 getSpritePos (const POAM_ENTRY pSprite) {
 void hideAllSprites (POAM_ENTRY pSprite) {
 	
 	u8 iSprite;
-	for (iSprite = 0; iSprite < C_SPRITES; iSprite++)
+	for (iSprite = 0; iSprite < cSprites; iSprite++)
 		setSpritePos(&pSprite[iSprite], SCREEN_WIDTH, SCREEN_HEIGHT);
 	
 }
@@ -67,7 +69,7 @@ void hideAllSprites (POAM_ENTRY pSprite) {
 // Copy attributes to a specific entry in OAM.
 void copyAttrToOAM (const POAM_ENTRY pSprite, const u8 iIndex) {
 	
-	if (iIndex >= C_SPRITES) return;
+	if (iIndex >= cSprites) return;
 	
 	if (pSprite == NULL) {
 		memset(&OAM_Memory[iIndex * sizeof(OAM_ENTRY)], 0, sizeof(OAM_ENTRY));
@@ -91,23 +93,15 @@ void copySpritesToOAM (const POAM_ENTRY pSprite) {
 		u16 iSprite;
 		
 		// Copy sprite data to OAM.
-		for (iSprite = 0; iSprite < C_SPRITES*4; iSprite++) {
+		for (iSprite = 0; iSprite < C_SPRITES*4; iSprite++)
 			OAM_Memory[iSprite] = pSpriteTemp[iSprite];
-		}
 	} */
-	u8 iSprite;
-	for (iSprite = 0; iSprite < C_SPRITES; iSprite++)
-		copyAttrToOAM(&pSprite[iSprite], iSprite);
-	
-}
-
-// Copies a sixteen color sprite palette to a given subpalette index.
-void copyObjPalette (const pu16 pPalette, const u8 iIndex) {
-	
-	if (pPalette == NULL) {
-		memset(&OBJ_PalMem[iIndex * CB_OBJPAL], 0, CB_OBJPAL);
+	if (pSprite == NULL) {
+		memset(OAM_Memory, 0, (cSprites * sizeof(OAM_ENTRY)));
 	} else {
-		memcpy(&OBJ_PalMem[iIndex * CB_OBJPAL], pPalette, CB_OBJPAL);
+		u8 iSprite;
+		for (iSprite = 0; iSprite < cSprites; iSprite++)
+			copyAttrToOAM(&pSprite[iSprite], iSprite);
 	}
 	
 }
