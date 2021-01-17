@@ -20,13 +20,12 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA 02110-1301, USA.
  * 
- * 
  */
 
 #ifndef _SAVES_H_
 #define _SAVES_H_
 
-#include "gba/gba.h"
+#include "../gba/gba.h"
 
 #define CCH_MAX_DESC 442
 #define C_MAX_SONG 32
