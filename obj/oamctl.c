@@ -28,7 +28,8 @@
 // Include used C headers:
 #include <string.h>
 
-const u16 cSprites = 128;
+const u16 g_cSprites = 128;
+const u16 g_cObjTiles = 1024;
 
 // Move a sprite relative to its current position.
 // Returns the new position.
@@ -67,6 +68,7 @@ void setSpritePos (POAM_ENTRY pSprite, const u8 x, const u8 y) {
 // Get a sprite's position.
 UPoint2D8 getSpritePos (const POAM_ENTRY pSprite) {
 	
+	// Mask off the X & Y position bits from attributes 0 & 1.
 	UPoint2D8 uxyPos = {
 		pSprite->uAttr1 & ~ATR1_MASK,
 		pSprite->uAttr0 & ~ATR0_MASK
@@ -75,24 +77,15 @@ UPoint2D8 getSpritePos (const POAM_ENTRY pSprite) {
 	
 }
 
-// Move all sprites offscreen.
-void hideAllSprites (POAM_ENTRY pSprite) {
-	
-	u8 iSprite;
-	for (iSprite = 0; iSprite < cSprites; iSprite++)
-		setSpritePos(&pSprite[iSprite], SCREEN_WIDTH, SCREEN_HEIGHT);
-	
-}
-
 // Copy attributes to a specific entry in OAM.
 void copyAttrToOAM (const POAM_ENTRY pSprite, const u8 iIndex) {
 	
-	if (iIndex >= cSprites) return;
+	if (iIndex >= g_cSprites) return;
 	
 	if (pSprite == NULL) {
-		memset(&OAM_Memory[iIndex * sizeof(OAM_ENTRY)], 0, sizeof(OAM_ENTRY));
+		memset(&OAM_Memory[iIndex * 4], 0, sizeof(OAM_ENTRY));
 	} else {
-		memcpy(&OAM_Memory[iIndex * sizeof(OAM_ENTRY)], pSprite, sizeof(OAM_ENTRY));
+		memcpy(&OAM_Memory[iIndex * 4], pSprite, sizeof(OAM_ENTRY));
 	}
 	
 }
@@ -115,16 +108,19 @@ void copySpritesToOAM (const POAM_ENTRY pSprite) {
 			OAM_Memory[iSprite] = pSpriteTemp[iSprite];
 	} */
 	if (pSprite == NULL) {
-		memset(OAM_Memory, 0, (cSprites * sizeof(OAM_ENTRY)));
+		memset(OAM_Memory, 0, (g_cSprites * sizeof(OAM_ENTRY)));
 	} else {
 		u8 iSprite;
-		for (iSprite = 0; iSprite < cSprites; iSprite++)
+		for (iSprite = 0; iSprite < g_cSprites; iSprite++)
 			copyAttrToOAM(&pSprite[iSprite], iSprite);
 	}
 	
 }
 
+// Copy object tile data to a given tile index.
 void copySpriteData (const pu8 pData, const u8 iIndex) {
+	
+	if (iIndex >= g_cObjTiles) return;
 	
 	if (pData == NULL) {
 		memset(&OAM_Data[iIndex * 32], 0, 32);
