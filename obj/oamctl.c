@@ -1,8 +1,26 @@
-//
-// obj/oamctl.c
-//
-// OAM/Sprite Control Module.
-//
+/*
+ * obj/oamctl.c
+ * 
+ * Advanced Sound Dj - OAM/Sprite Control Module.
+ * 
+ * Copyright 2020-2021 ASDj Dev Team
+ * 
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ * 
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
+ * MA 02110-1301, USA.
+ * 
+ */
 
 // Include module header:
 #include "../inc/obj/oamctl.h"
@@ -102,6 +120,16 @@ void copySpritesToOAM (const POAM_ENTRY pSprite) {
 		u8 iSprite;
 		for (iSprite = 0; iSprite < cSprites; iSprite++)
 			copyAttrToOAM(&pSprite[iSprite], iSprite);
+	}
+	
+}
+
+void copySpriteData (const pu8 pData, const u8 iIndex) {
+	
+	if (pData == NULL) {
+		memset(&OAM_Data[iIndex * 32], 0, 32);
+	} else {
+		memcpy(&OAM_Data[iIndex * 32], pData, 32);
 	}
 	
 }
