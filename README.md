@@ -1,3 +1,9 @@
-# ASDj - GBA Native Tracker
+# ASDj - Advance Sound Dj
 
-Advance Sound Dj (working title) - a Gameboy Advance native music tracker utilizing both PCM and PSG channels, with UI based on well established [Gameboy tracker LSDj](https://www.littlesounddj.com)<br> 
+Advance Sound Dj (or ASDj for short) is a music tracker for the Nintendo
+Gameboy Advance. Written in C using [devkitPro](https://devkitpro.org/), and
+utilizing both PCM and PSG channels, and with UI based on well the
+well-established GameBoy tracker [LSDj](https://www.littlesounddj.com).
+
+ASDj is still very early in development, but it aims to become a extremely
+accessible and powerful music creation tool for GBA.
