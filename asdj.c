@@ -103,21 +103,23 @@ void doKeyInput () {
 	static u16 uKeyState;
 	static Point2D8 xyDelta;
 	
-	uKeyState = REG_KEYINPUT;
+	// Read key register
+	uKeyState = (REG_KEYINPUT & KEY_MASK);
 	
+	// Clear the cursor position's delta.
 	memset(&xyDelta, 0, sizeof(Point2D8));
 	
 	// Disallow opposing inputs.
 	if (uKeyState & (KEY_RIGHT | KEY_LEFT)) return;
 	if (uKeyState & (KEY_UP | KEY_DOWN)) return;
 	
+	// Move the cursor based on the dpad's state.
 	if (uKeyState & KEY_RIGHT) xyDelta.x = 1;
 	if (uKeyState & KEY_LEFT) xyDelta.x = -1;
 	if (uKeyState & KEY_UP) xyDelta.y = 1;
 	if (uKeyState & KEY_DOWN) xyDelta.y = -1;
 	
 	moveSprite(&s_pSprite[0], xyDelta.x, xyDelta.y);
-	// setSpritePos(&s_pSprite[0], uxyCurPos.x, uxyCurPos.y);
 	
 }
 
