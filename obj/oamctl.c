@@ -94,19 +94,6 @@ void copyAttrToOAM (const POAM_ENTRY pSprite, const u8 iIndex) {
 void copySpritesToOAM (const POAM_ENTRY pSprite) {
 	
 	// Clear OAM if sprite pointer is null.
-	/* if (pSprite == NULL) {
-		memset(OAM_Memory, 0, CB_OAM);
-	} else {
-		
-		// Create temporary pointer to sprite data.
-		pu16 pSpriteTemp = (pu16)pSprite;
-		
-		u16 iSprite;
-		
-		// Copy sprite data to OAM.
-		for (iSprite = 0; iSprite < C_SPRITES*4; iSprite++)
-			OAM_Memory[iSprite] = pSpriteTemp[iSprite];
-	} */
 	if (pSprite == NULL) {
 		memset(OAM_Memory, 0, (g_cSprites * sizeof(OAM_ENTRY)));
 	} else {
