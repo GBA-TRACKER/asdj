@@ -100,17 +100,21 @@ ERRORID doInit () {
 
 void doKeyInput () {
 	
+	static u16 uKeyState;
 	static Point2D8 xyDelta;
+	
+	uKeyState = REG_KEYINPUT;
+	
 	memset(&xyDelta, 0, sizeof(Point2D8));
 	
 	// Disallow opposing inputs.
-	if keyDown((KEY_RIGHT | KEY_LEFT)) return;
-	if keyDown((KEY_UP | KEY_DOWN)) return;
+	if (uKeyState & (KEY_RIGHT | KEY_LEFT)) return;
+	if (uKeyState & (KEY_UP | KEY_DOWN)) return;
 	
-	if keyDown(KEY_RIGHT) xyDelta.x = 1;
-	if keyDown(KEY_LEFT) xyDelta.x = -1;
-	if keyDown(KEY_UP) xyDelta.y = 1;
-	if keyDown(KEY_DOWN) xyDelta.y = -1;
+	if (uKeyState & KEY_RIGHT) xyDelta.x = 1;
+	if (uKeyState & KEY_LEFT) xyDelta.x = -1;
+	if (uKeyState & KEY_UP) xyDelta.y = 1;
+	if (uKeyState & KEY_DOWN) xyDelta.y = -1;
 	
 	moveSprite(&s_pSprite[0], xyDelta.x, xyDelta.y);
 	// setSpritePos(&s_pSprite[0], uxyCurPos.x, uxyCurPos.y);
