@@ -28,19 +28,20 @@
 // Include used C headers:
 #include <string.h>
 
-const u16 cPalEntries = 256;
-const u16 cbPalette = (cPalEntries * sizeof(u16));
+// Define constants:
+const u16 g_cPalEntries = 256;
+const u16 g_cbPalette = (g_cPalEntries * sizeof(u16));
 
-const u16 cSubPal = 16;
-const u16 cbSubPal = (cSubPal * sizeof(u16));
+const u8 g_cSubPal = 16;
+const u8 g_cbSubPal = (g_cSubPal * sizeof(u16));
 
 // Copies a 256-color object palette.
 void copyObjPalette256 (const pu16 pPalette) {
 	
 	if (pPalette == NULL) {
-		memset(OBJ_PalMem, 0, cbPalette);
+		memset(OBJ_PalMem, 0, g_cbPalette);
 	} else {
-		memcpy(OBJ_PalMem, pPalette, cbPalette);
+		memcpy(OBJ_PalMem, pPalette, g_cbPalette);
 	}
 	
 }
@@ -49,9 +50,9 @@ void copyObjPalette256 (const pu16 pPalette) {
 void copyBgPalette256 (const pu16 pPalette) {
 	
 	if (pPalette == NULL) {
-		memset(BG_PalMem, 0, cbPalette);
+		memset(BG_PalMem, 0, g_cbPalette);
 	} else {
-		memcpy(BG_PalMem, pPalette, cbPalette);
+		memcpy(BG_PalMem, pPalette, g_cbPalette);
 	}
 	
 }
@@ -59,12 +60,13 @@ void copyBgPalette256 (const pu16 pPalette) {
 // Copies a sixteen color sprite palette to a given subpalette index.
 void copyObjPalette16 (const pu16 pPalette, const u8 iIndex) {
 	
-	if (iIndex >= cSubPal) return;
+	// Return immediately if index is invalid.
+	if (iIndex >= g_cSubPal) return;
 	
 	if (pPalette == NULL) {
-		memset(&OBJ_PalMem[iIndex * cSubPal], 0, cbSubPal);
+		memset(&OBJ_PalMem[iIndex * cSubPal], 0, g_cbSubPal);
 	} else {
-		memcpy(&OBJ_PalMem[iIndex * cSubPal], pPalette, cbSubPal);
+		memcpy(&OBJ_PalMem[iIndex * cSubPal], pPalette, g_cbSubPal);
 	}
 	
 }
@@ -72,12 +74,13 @@ void copyObjPalette16 (const pu16 pPalette, const u8 iIndex) {
 // Copies a sixteen color background palette to a given subpalette index.
 void copyBgPalette16 (const pu16 pPalette, const u8 iIndex) {
 	
-	if (iIndex >= cSubPal) return;
+	// Return immediately if index is invalid.
+	if (iIndex >= g_cSubPal) return;
 	
 	if (pPalette == NULL) {
-		memset(&BG_PalMem[iIndex * cSubPal], 0, cbSubPal);
+		memset(&BG_PalMem[iIndex * cSubPal], 0, g_cbSubPal);
 	} else {
-		memcpy(&BG_PalMem[iIndex * cSubPal], pPalette, cbSubPal);
+		memcpy(&BG_PalMem[iIndex * cSubPal], pPalette, g_cbSubPal);
 	}
 	
 }
