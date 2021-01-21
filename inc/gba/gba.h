@@ -29,7 +29,6 @@
 #include "types.h" // Typedefs.
 #include "regs.h" // Registers.
 #include "flags.h" // Flags.
-#include "macros.h" // Macros.
 
 // Default definitions:
 
