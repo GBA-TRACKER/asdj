@@ -34,7 +34,7 @@ PATH := ${DEVKITPRO}/tools/bin:${DEVKITARM}/bin:${PATH}
 TARGET   := $(shell basename ${CURDIR})
 BUILD    := 
 SOURCES  := obj
-DATA     := ${SOURCES}/data
+DATA     := data
 INCLUDES := inc
 
 LIBS     := 
@@ -44,12 +44,14 @@ LIBDIRS  :=
 OBJS     := ${TARGET}.o
 
 OBJS     += ${SOURCES}/bgctl.o
+OBJS     += ${SOURCES}/colctl.o
+OBJS     += ${SOURCES}/flash.o
 OBJS     += ${SOURCES}/oamctl.o
 OBJS     += ${SOURCES}/palctl.o
-OBJS     += ${SOURCES}/flash.o
+OBJS     += ${SOURCES}/timerctl.o
 
-OBJS     += ${DATA}/palette.o
-OBJS     += ${DATA}/sprite.o
+OBJS     += ${SOURCES}/data/palette.o
+OBJS     += ${SOURCES}/data/sprite.o
 
 ## ---------------------------------------------------------------------
 ## Set flags for code generation.

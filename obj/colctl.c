@@ -1,7 +1,7 @@
 /*
- * asdj.h
+ * obj/colctl.c
  * 
- * Advanced Sound Dj - Main Module Header
+ * Advanced Sound Dj - Color Control Module
  * 
  * Copyright 2020-2021 ASDj Dev Team
  * 
@@ -22,32 +22,32 @@
  * 
  */
 
-#ifndef _ASDJ_H_
-#define _ASDJ_H_
+#include "../inc/obj/colctl.h"
 
-// Include GBA headers:
-#include "inc/gba/gba.h"
+COLORSPEC makeColSpec (const PRGB_COLOR pRgb) {
+	
+	if (pRgb == NULL) return 0;
+	
+	COLORSPEC csCol;
+	
+	csCol = (pRgb->uRed & 0x1F);
+	csCol |= ((pRgb->uGreen & 0x1F) << 5);
+	csCol |= ((pRgb->uBlue & 0x1F) << 10);
+	
+	return csCol;
+	
+}
 
-// Include error codes header:
-#include "inc/errcodes.h"
-
-// Include object headers:
-#include "inc/obj/bgctl.h"
-#include "inc/obj/colctl.h"
-#include "inc/obj/flash.h"
-#include "inc/obj/oamctl.h"
-#include "inc/obj/palctl.h"
-#include "inc/obj/saves.h"
-
-// Include data headers:
-#include "inc/obj/data/palette.h"
-#include "inc/obj/data/sprite.h"
-
-// Declare functions defined in main module:
-ERRORID doInit ();
-void doKeyInput ();
-void waitForVSync ();
-
-#endif /* _ASDJ_H_ */
+RGB_COLOR makeRgbCol (const COLORSPEC csCol) {
+	
+	RGB_COLOR rgb = {
+		(csCol & 0x001F),
+		((csCol & 0x03E0) >> 5),
+		((csCol & 0x7C00) >> 10)
+	}
+	
+	return rgb;
+	
+}
 
 // EOF

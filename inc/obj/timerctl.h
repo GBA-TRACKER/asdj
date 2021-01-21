@@ -1,9 +1,9 @@
 /*
- * asdj.h
+ * inc/obj/timerctl.h
  * 
- * Advanced Sound Dj - Main Module Header
+ * Advanced Sound Dj - Timer Control Module Header
  * 
- * Copyright 2020-2021 ASDj Dev Team
+ * Copyright 2020-2021 ASDJ Dev Team
  * 
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -22,32 +22,15 @@
  * 
  */
 
-#ifndef _ASDJ_H_
-#define _ASDJ_H_
+#ifndef _TIMERCTL_H_
+#define _TIMERCTL_H_
 
 // Include GBA headers:
-#include "inc/gba/gba.h"
+#include "../gba/gba.h"
 
-// Include error codes header:
-#include "inc/errcodes.h"
+// Declare functions defined in module:
+void waitTime (const u32 length);
 
-// Include object headers:
-#include "inc/obj/bgctl.h"
-#include "inc/obj/colctl.h"
-#include "inc/obj/flash.h"
-#include "inc/obj/oamctl.h"
-#include "inc/obj/palctl.h"
-#include "inc/obj/saves.h"
-
-// Include data headers:
-#include "inc/obj/data/palette.h"
-#include "inc/obj/data/sprite.h"
-
-// Declare functions defined in main module:
-ERRORID doInit ();
-void doKeyInput ();
-void waitForVSync ();
-
-#endif /* _ASDJ_H_ */
+#endif /* _TIMERCTL_H_ */
 
 // EOF

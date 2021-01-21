@@ -1,7 +1,7 @@
 /*
- * asdj.h
+ * inc/obj/colctl.h
  * 
- * Advanced Sound Dj - Main Module Header
+ * Advanced Sound Dj - Color Control Module Header
  * 
  * Copyright 2020-2021 ASDj Dev Team
  * 
@@ -22,32 +22,16 @@
  * 
  */
 
-#ifndef _ASDJ_H_
-#define _ASDJ_H_
+#ifndef _COLCTL_H_
+#define _COLCTL_H_
 
 // Include GBA headers:
-#include "inc/gba/gba.h"
+#include "../gba/gba.h"
 
-// Include error codes header:
-#include "inc/errcodes.h"
+// Declare functions defined in module:
+COLORSPEC makeColSpec (const PRGB_COLOR pRgb);
+RGB_COLOR makeRgbCol (const COLORSPEC csCol);
 
-// Include object headers:
-#include "inc/obj/bgctl.h"
-#include "inc/obj/colctl.h"
-#include "inc/obj/flash.h"
-#include "inc/obj/oamctl.h"
-#include "inc/obj/palctl.h"
-#include "inc/obj/saves.h"
-
-// Include data headers:
-#include "inc/obj/data/palette.h"
-#include "inc/obj/data/sprite.h"
-
-// Declare functions defined in main module:
-ERRORID doInit ();
-void doKeyInput ();
-void waitForVSync ();
-
-#endif /* _ASDJ_H_ */
+#endif /* _COLCTL_H_ */
 
 // EOF

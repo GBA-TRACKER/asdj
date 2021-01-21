@@ -86,9 +86,13 @@ ERRORID doInit () {
 	copyObjPalette16((const pu16)PALETTE_DEFAULT, 0);
 	copyObjPalette16((const pu16)PALETTE_DEFAULT2, 1);
 	copyObjPalette16((const pu16)PALETTE_GREYSCALE, 2);
+	copyObjPalette16((const pu16)PALETTE_MONO, 3);
 	
 	// Copy background palettes.
 	copyBgPalette16((const pu16)PALETTE_DEFAULT, 0);
+	copyBgPalette16((const pu16)PALETTE_DEFAULT2, 1);
+	copyBgPalette16((const pu16)PALETTE_GREYSCALE, 2);
+	copyBgPalette16((const pu16)PALETTE_MONO, 3);
 	
 	// Copy tile data:
 	// Copy object tile data.
@@ -98,6 +102,7 @@ ERRORID doInit () {
 	
 }
 
+// Read and process user's key input.
 void doKeyInput () {
 	
 	static u16 uKeyState;
@@ -123,29 +128,11 @@ void doKeyInput () {
 	
 }
 
-// Waits a specified length of time in milliseconds.
-void waitTime (u32 length) {
+// Waits for VSync.
+void waitForVSync () {
 	
-	// Divide length into milliseconds and seconds.
-	u32 nMs = length % 1000;
-	u32 nSec = (length - nMs) / 1000;
-	
-	// Enable timers.
-	// Timer 2 on every 256th cycle, and timer 3 when timer 2 overflows.
-	REG_TM2CNT = (TIMF_ENABLE | TIMF_PRESCALE_256);
-	REG_TM3CNT = (TIMF_ENABLE | TIMF_OVERFLOW);
-	
-	// Reset timer counts.
-	REG_TM2D = REG_TM3D = 0;
-	
-	// Wait for nSec seconds.
-	while(REG_TM3D < nSec);
-	
-	// Wait the remaining milliseconds.
-	while(REG_TM2D < (65535 / 1000) * nMs);
-	
-	// Disable the timers.
-	REG_TM2CNT = REG_TM3CNT = 0;
+	while(!(REG_DISPSTAT & VBLANK));
+	while(REG_VCOUNT != SCREEN_HEIGHT);
 	
 }
 
