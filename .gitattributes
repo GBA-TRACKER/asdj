@@ -1,7 +1,7 @@
 ## 
-## .gitignore
+## .gitattributes
 ## 
-## gitignore file for ASDj.
+## gitattributes file for ASDj.
 ## 
 ## Copyright 2020-2021 ASDj Dev Team
 ## 
@@ -21,27 +21,22 @@
 ## MA 02110-1301, USA.
 ## 
 
-## Ignore project files:
-*.npp
-*.geany
+[attr]sourcefile text eol=lf
 
-## Ignore binaries:
-*.o
-*.elf
-*.bin
-*.gba
+*		text=auto
 
-## Ignore archive files:
-*.zip
-*.ZIP
-*.rar
-*.RAR
-*.7z
-*.tar*
-*.gz
-*.bz2
-*.xz
-*.lzma
-*.tgz
+## Set source files filters:
+*.c		sourcefile
+*.h		sourcefile
+makefile	sourcefile
+
+## Set binary data file filters:
+*.png	binary
+
+## Set documentation file filters:
+*.txt	text
+*.md	text
+*.html	text
+*.htm	text
 
 ## EOF
