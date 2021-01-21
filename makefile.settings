@@ -1,0 +1,15 @@
+
+## ---------------------------------------------------------------------
+## Make sure the DEVKITPRO & DEVKITARM environment variables are set,
+## load the GBA-specific rules, and set the binary search path.
+## ---------------------------------------------------------------------
+
+ifeq ($(strip ${DEVKITARM}),)
+	$(error "DEVKITARM not set. Please set it in your environment.")
+endif
+
+include ${DEVKITARM}/gba_rules
+
+PATH := ${DEVKITPRO}/tools/bin:${DEVKITARM}/bin:${PATH}
+
+## EOF

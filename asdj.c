@@ -29,13 +29,15 @@
 #include <string.h>
 
 // Shared module level variables:
-OAM_ENTRY s_pSprite[128]; // Temporary buffer for all sprites attributes.
+// OAM_ENTRY s_pSprite[128]; // Temporary buffer for all sprites attributes.
 
 // Main routine:
 int main () {
 	
 	// Initialize:
 	doInit();
+	
+	OAM_ENTRY oeCursor;
 	
 	// Main loop code:
 	while(1) {
@@ -44,10 +46,10 @@ int main () {
 		waitForVSync();
 		
 		// Copy the temporary sprite buffer to OAM.
-		copyAttrToOAM(&s_pSprite[0], 0);
+		copyAttrToOAM(&oeCursor, 0);
 		
 		// Process user input.
-		doKeyInput();
+		doKeyInput(&oeCursor);
 	}
 	
 	return EXIT_SUCCESS;
@@ -57,16 +59,15 @@ int main () {
 ERRORID doInit () {
 	
 	// Set video mode.
-	// setVideoMode(MODE_0 | BG0_ENABLE | OBJ_ENABLE | OBJ_MAP_1D);
 	REG_DISPCNT = (u16)(MODE_0 | BG0_ENABLE | OBJ_ENABLE | OBJ_MAP_1D);
 	
 	// Set background 0 mode.
-	REG_BG0CNT = (u16)(BG_PRIORITY(3) | BG_CHARBASE(0) | BG_SCREENBASE(0) | BG_SCREENSIZE(0));
+	REG_BG0CNT = (u16)(BG_PRIORITY(3) | BG_CHARBASE(0) | BG_SCREENBASE(8) | BG_SCREENSIZE(0));
 	
 	
 	// Setup temporary OAM buffer:
 	// Clear temporary buffer.
-	memset(s_pSprite, 0, (g_cSprites * sizeof(OAM_ENTRY)));
+	/* memset(s_pSprite, 0, (g_cSprites * sizeof(OAM_ENTRY)));
 	
 	// Fill it with default values.
 	u8 iSprite;
@@ -79,7 +80,7 @@ ERRORID doInit () {
 		s_pSprite[iSprite].uAttr0 |= (ATR0_COLOR16 | ATR0_SQUARE);
 		s_pSprite[iSprite].uAttr1 |= (ATR1_SIZE8);
 		s_pSprite[iSprite].uAttr2 |= (ATR2_PRIORITY(0) | ATR2_PALETTE(0));
-	}
+	} */
 	
 	// Setup palettes:
 	// Copy object palettes.
@@ -98,18 +99,21 @@ ERRORID doInit () {
 	// Copy object tile data.
 	copySpriteData((const pu8)SPRITE_CURSOR, 0);
 	
+	memcpy(VRAM + 32, SMALLFONT_4X4Tiles, SMALLFONT_4X4TilesLen);
+	memcpy((VRAM + SMALLFONT_4X4TilesLen + 32), SMALLFONT_8X4Tiles, SMALLFONT_8X4TilesLen);
+	
 	return ERR_SUCCESS;
 	
 }
 
 // Read and process user's key input.
-void doKeyInput () {
+void doKeyInput (POAM_ENTRY poeCursor) {
 	
 	static u16 uKeyState;
 	static Point2D8 xyDelta;
 	
 	// Read key register
-	uKeyState = (REG_KEYINPUT & KEY_MASK);
+	uKeyState = (~REG_KEYINPUT & KEY_MASK);
 	
 	// Clear the cursor position's delta.
 	memset(&xyDelta, 0, sizeof(Point2D8));
@@ -124,7 +128,7 @@ void doKeyInput () {
 	if (uKeyState & KEY_UP) xyDelta.y = 1;
 	if (uKeyState & KEY_DOWN) xyDelta.y = -1;
 	
-	moveSprite(&s_pSprite[0], xyDelta.x, xyDelta.y);
+	moveSprite(poeCursor, xyDelta.x, xyDelta.y);
 	
 }
 

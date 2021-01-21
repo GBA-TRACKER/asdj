@@ -14,18 +14,7 @@
 
 .DEFAULT_GOAL := build
 
-## ---------------------------------------------------------------------
-## Make sure DEVKITARM is set, and load the rules for GBA & set the
-## path.
-## ---------------------------------------------------------------------
-
-ifeq ($(strip ${DEVKITARM}),)
-	$(error "DEVKITARM not set. Please set it in your environment.")
-endif
-
-include ${DEVKITARM}/gba_rules
-
-PATH := ${DEVKITPRO}/tools/bin:${DEVKITARM}/bin:${PATH}
+include makefile.settings
 
 ## ---------------------------------------------------------------------
 ## Setup project details.
@@ -52,6 +41,9 @@ OBJS     += ${SOURCES}/timerctl.o
 
 OBJS     += ${SOURCES}/data/palette.o
 OBJS     += ${SOURCES}/data/sprite.o
+
+OBJS     += ${DATA}/smallfnt_4x4.o
+OBJS     += ${DATA}/smallfnt_8x4.o
 
 ## ---------------------------------------------------------------------
 ## Set flags for code generation.

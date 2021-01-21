@@ -42,10 +42,12 @@
 // Include data headers:
 #include "inc/obj/data/palette.h"
 #include "inc/obj/data/sprite.h"
+#include "data/smallfnt_4x4.h"
+#include "data/smallfnt_8x4.h"
 
 // Declare functions defined in main module:
 ERRORID doInit ();
-void doKeyInput ();
+void doKeyInput (POAM_ENTRY poeCursor);
 void waitForVSync ();
 
 #endif /* _ASDJ_H_ */
