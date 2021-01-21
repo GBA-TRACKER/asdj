@@ -28,7 +28,7 @@
 // Include used C headers:
 #include <string.h>
 
-const u16 g_cSprites = 128;
+const u8 g_cSprites = 128;
 const u16 g_cObjTiles = 1024;
 
 // Move a sprite relative to its current position.
@@ -83,9 +83,9 @@ void copyAttrToOAM (const POAM_ENTRY pSprite, const u8 iIndex) {
 	if (iIndex >= g_cSprites) return;
 	
 	if (pSprite == NULL) {
-		memset(&OAM_Memory[iIndex * 4], 0, sizeof(OAM_ENTRY));
+		memset(&OAM_Memory[iIndex], 0, sizeof(OAM_ENTRY));
 	} else {
-		memcpy(&OAM_Memory[iIndex * 4], pSprite, sizeof(OAM_ENTRY));
+		memcpy(&OAM_Memory[iIndex], pSprite, sizeof(OAM_ENTRY));
 	}
 	
 }
@@ -105,7 +105,7 @@ void copySpritesToOAM (const POAM_ENTRY pSprite) {
 }
 
 // Copy object tile data to a given tile index.
-void copySpriteData (const pu8 pData, const u8 iIndex) {
+void copySpriteData (const pu8 pData, const u16 iIndex) {
 	
 	if (iIndex >= g_cObjTiles) return;
 	
