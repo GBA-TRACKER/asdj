@@ -1,0 +1,4 @@
+# Special Thanks
+
+* nocash
+* Pator
