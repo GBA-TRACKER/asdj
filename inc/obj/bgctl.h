@@ -1,5 +1,5 @@
 /*
- * obj/bgctl.c
+ * inc/obj/bgctl.h
  * 
  * Advanced Sound Dj - Background Control Module Header
  * 
@@ -29,7 +29,6 @@
 #include "../gba/gba.h"
 
 // Declare functions defined in module:
-// void copyBgPalette (const pu16 pbgPalette);
 void copyBackground (const pu16 pbgData);
 
 #endif /* _BGCTL_H_ */
