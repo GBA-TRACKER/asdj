@@ -24,6 +24,8 @@
 
 #include "../inc/obj/colctl.h"
 
+#include <stddef.h>
+
 COLORSPEC makeColSpec (const PRGB_COLOR pRgb) {
 	
 	if (pRgb == NULL) return 0;
@@ -44,7 +46,7 @@ RGB_COLOR makeRgbCol (const COLORSPEC csCol) {
 		(csCol & 0x001F),
 		((csCol & 0x03E0) >> 5),
 		((csCol & 0x7C00) >> 10)
-	}
+	};
 	
 	return rgb;
 	

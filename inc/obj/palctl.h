@@ -31,8 +31,8 @@
 // Declare external constants:
 extern const u16 g_cPalEntries;
 extern const u16 g_cbPalette;
-extern const u16 g_cSubPal;
-extern const u16 g_cbSubPal;
+extern const u8 g_cSubPal;
+extern const u8 g_cbSubPal;
 
 // Declare functions defined in module:
 void copyObjPalette256 (const pu16 pPalette);

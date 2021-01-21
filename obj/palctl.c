@@ -64,9 +64,9 @@ void copyObjPalette16 (const pu16 pPalette, const u8 iIndex) {
 	if (iIndex >= g_cSubPal) return;
 	
 	if (pPalette == NULL) {
-		memset(&OBJ_PalMem[iIndex * cSubPal], 0, g_cbSubPal);
+		memset(&OBJ_PalMem[iIndex * g_cSubPal], 0, g_cbSubPal);
 	} else {
-		memcpy(&OBJ_PalMem[iIndex * cSubPal], pPalette, g_cbSubPal);
+		memcpy(&OBJ_PalMem[iIndex * g_cSubPal], pPalette, g_cbSubPal);
 	}
 	
 }
@@ -78,9 +78,9 @@ void copyBgPalette16 (const pu16 pPalette, const u8 iIndex) {
 	if (iIndex >= g_cSubPal) return;
 	
 	if (pPalette == NULL) {
-		memset(&BG_PalMem[iIndex * cSubPal], 0, g_cbSubPal);
+		memset(&BG_PalMem[iIndex * g_cSubPal], 0, g_cbSubPal);
 	} else {
-		memcpy(&BG_PalMem[iIndex * cSubPal], pPalette, g_cbSubPal);
+		memcpy(&BG_PalMem[iIndex * g_cSubPal], pPalette, g_cbSubPal);
 	}
 	
 }
