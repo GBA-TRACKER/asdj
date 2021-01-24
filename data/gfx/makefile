@@ -1,4 +1,9 @@
 ## ---------------------------------------------------------------------
+## Makefile for ASDj graphics.
+## ---------------------------------------------------------------------
+
+
+## ---------------------------------------------------------------------
 ## Set phony & default targets, and override the default suffix rules.
 ## ---------------------------------------------------------------------
 
@@ -7,7 +12,7 @@
 
 .DEFAULT_GOAL := convert
 
-include ../makefile.settings
+include ../../makefile.settings
 
 ## ---------------------------------------------------------------------
 ## Set settings for bitmap/PNG conversion using GRIT.
@@ -34,12 +39,14 @@ convert: smallfnt_4x4 smallfnt_8x4
 
 smallfnt_4x4: smallfnt.png
 	-@echo 'Creating $@ from $<...'
-	grit $< -at0 -ah8 ${GRITFLAGS} -s SMALLFONT_4X4 -o $@.c
+	grit $< ${GRITFLAGS} -at0 -ah8 -s SMALLFONT_4X4 -o $@.c
 	test -f $@.h
+	test -f $@.c
 
 smallfnt_8x4: smallfnt.png
 	-@echo 'Creating $@ from $<...'
-	grit $< -at16 -ah48 ${GRITFLAGS} -s SMALLFONT_8X4 -o $@.c
+	grit $< -at16 -ah48 ${GRITFLAGS} -at0 -ah8 -s SMALLFONT_8X4 -o $@.c
 	test -f $@.h
-	
+	test -f $@.c
+
 ## EOF

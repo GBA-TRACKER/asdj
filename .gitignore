@@ -44,4 +44,8 @@
 *.lzma
 *.tgz
 
+## Ignore headers and source files for graphics data:
+data/gfx/*.h
+data/gfx/*.c
+
 ## EOF
