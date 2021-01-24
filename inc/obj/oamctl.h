@@ -33,7 +33,6 @@
 
 // Declare external constants:
 extern const u8 g_cSprites;
-extern const u16 g_cObjTiles;
 
 // Declare functions defined in module:
 UPoint2D8 moveSprite (POAM_ENTRY pSprite, const s8 x, const s8 y);
@@ -43,7 +42,7 @@ UPoint2D8 getSpritePos (const POAM_ENTRY pSprite);
 void copyAttrToOAM (const POAM_ENTRY pSprite, const u8 iIndex);
 void copySpritesToOAM (const POAM_ENTRY pSprite);
 
-void copySpriteData (const pu8 pData, const u16 iIndex);
+// void copySpriteData (const pu8 pData, const u16 iIndex);
 
 #endif /* _OAMCTL_H_ */
 

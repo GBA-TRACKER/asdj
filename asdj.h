@@ -32,18 +32,18 @@
 #include "inc/errcodes.h"
 
 // Include object headers:
-#include "inc/obj/bgctl.h"
 #include "inc/obj/colctl.h"
 #include "inc/obj/flash.h"
 #include "inc/obj/oamctl.h"
 #include "inc/obj/palctl.h"
+#include "inc/obj/tilectl.h"
 #include "inc/obj/saves.h"
 
 // Include data headers:
 #include "inc/obj/data/palette.h"
 #include "inc/obj/data/sprite.h"
-#include "data/smallfnt_4x4.h"
-#include "data/smallfnt_8x4.h"
+#include "data/gfx/smallfnt_4x4.h"
+#include "data/gfx/smallfnt_8x4.h"
 
 // Declare functions defined in main module:
 ERRORID doInit ();

@@ -97,7 +97,8 @@ ERRORID doInit () {
 	
 	// Copy tile data:
 	// Copy object tile data.
-	copySpriteData((const pu8)SPRITE_CURSOR, 0);
+	//copySpriteData((const pu8)SPRITE_CURSOR, 0);
+	copyObjTile((const pu8)SPRITE_CURSOR, 0);
 	
 	memcpy(VRAM + 32, SMALLFONT_4X4Tiles, SMALLFONT_4X4TilesLen);
 	memcpy((VRAM + SMALLFONT_4X4TilesLen + 32), SMALLFONT_8X4Tiles, SMALLFONT_8X4TilesLen);
@@ -136,7 +137,7 @@ void doKeyInput (POAM_ENTRY poeCursor) {
 void waitForVSync () {
 	
 	while(!(REG_DISPSTAT & VBLANK));
-	while(REG_VCOUNT != SCREEN_HEIGHT);
+	while(REG_VCOUNT < SCREEN_HEIGHT);
 	
 }
 

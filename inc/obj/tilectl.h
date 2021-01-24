@@ -1,7 +1,7 @@
 /*
- * inc/obj/bgctl.h
+ * inc/obj/tilectl.h
  * 
- * Advanced Sound Dj - Background Control Module Header
+ * Advanced Sound Dj - Tile Control Module Header
  * 
  * Copyright 2020-2021 ASDJ Dev Team
  * 
@@ -22,15 +22,20 @@
  * 
  */
 
-#ifndef _BGCTL_H_
-#define _BGCTL_H_
+#ifndef _TILECTL_H_
+#define _TILECTL_H_
 
 // Include GBA headers:
 #include "../gba/gba.h"
 
-// Declare functions defined in module:
-void copyBackground (const pu16 pbgData);
+// Declare external constants:
+extern const u8 g_cbTile;
+extern const u16 g_cObjTiles;
 
-#endif /* _BGCTL_H_ */
+// Declare functions defined in module:
+void copyBgTile (const pu8 pTile, const u16 iOffset);
+void copyObjTile (const pu8 pTile, const u16 iIndex);
+
+#endif /* _TILECTL_H_ */
 
 // EOF

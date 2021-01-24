@@ -32,18 +32,18 @@ LIBDIRS  :=
 
 OBJS     := ${TARGET}.o
 
-OBJS     += ${SOURCES}/bgctl.o
 OBJS     += ${SOURCES}/colctl.o
 OBJS     += ${SOURCES}/flash.o
 OBJS     += ${SOURCES}/oamctl.o
 OBJS     += ${SOURCES}/palctl.o
+OBJS     += ${SOURCES}/tilectl.o
 OBJS     += ${SOURCES}/timerctl.o
 
 OBJS     += ${SOURCES}/data/palette.o
 OBJS     += ${SOURCES}/data/sprite.o
 
-OBJS     += ${DATA}/smallfnt_4x4.o
-OBJS     += ${DATA}/smallfnt_8x4.o
+OBJS     += ${DATA}/gfx/smallfnt_4x4.o
+OBJS     += ${DATA}/gfx/smallfnt_8x4.o
 
 ## ---------------------------------------------------------------------
 ## Set flags for code generation.
@@ -108,6 +108,6 @@ ${OBJS}: %.o : %.c
 .IGNORE: clean
 clean:
 	-@echo 'Cleaning up intermediary files...'
-	@rm -vf ${SOURCES}/*.o ${DATA}/*.o *.o *.elf
+	@rm -vf ${SOURCES}/*.o ${DATA}/gfx/*.o *.o *.elf
 
 ## EOF
