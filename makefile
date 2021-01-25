@@ -42,6 +42,7 @@ OBJS     += ${SOURCES}/timerctl.o
 OBJS     += ${SOURCES}/data/palette.o
 OBJS     += ${SOURCES}/data/sprite.o
 
+OBJS     += ${DATA}/gfx/font_8x8.o
 OBJS     += ${DATA}/gfx/smallfnt_4x4.o
 OBJS     += ${DATA}/gfx/smallfnt_8x4.o
 

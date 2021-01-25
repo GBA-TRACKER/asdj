@@ -7,7 +7,7 @@
 ## Set phony & default targets, and override the default suffix rules.
 ## ---------------------------------------------------------------------
 
-.PHONY: convert
+.PHONY: convert clean
 .SUFFIXES:
 
 .DEFAULT_GOAL := convert
@@ -35,7 +35,8 @@ endif
 ## Compilation rules.
 ## ---------------------------------------------------------------------
 
-convert: smallfnt_4x4 smallfnt_8x4
+convert: smallfnt_4x4 smallfnt_8x4 font_8x8
+	-@echo 'Successfully created: $^'
 
 smallfnt_4x4: smallfnt.png
 	-@echo 'Creating $@ from $<...'
@@ -45,8 +46,20 @@ smallfnt_4x4: smallfnt.png
 
 smallfnt_8x4: smallfnt.png
 	-@echo 'Creating $@ from $<...'
-	grit $< -at16 -ah48 ${GRITFLAGS} -at0 -ah8 -s SMALLFONT_8X4 -o $@.c
+	grit $< ${GRITFLAGS} -at16 -ah48 -s SMALLFONT_8X4 -o $@.c
 	test -f $@.h
 	test -f $@.c
 
+font_8x8: numpunct.png
+	-@echo 'Creating $@ from $<...'
+	grit $< ${GRITFLAGS} -s FONT_8X8 -o $@.c
+	test -f $@.h
+	test -f $@.c
+
+.IGNORE: clean
+clean:
+	-@echo 'Cleaning up built files...'
+	@rm -vf *.o
+	@rm -vf *.c
+	@rm -vf *.h
 ## EOF

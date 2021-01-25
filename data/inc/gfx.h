@@ -1,9 +1,9 @@
 /*
- * inc/obj/data/palette.h
+ * data/inc/gfx.h
  * 
- * Advanced Sound Dj - Palette Data Module Header
+ * Advanced Sound Dj - Graphics Data Header
  * 
- * Copyright 2020-2021 ASDJ Dev Team
+ * Copyright 2021 ASDJ Dev Team
  * 
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -22,17 +22,13 @@
  * 
  */
 
-#ifndef _PALETTES_H_
-#define _PALETTES_H_
+#ifndef _ASDJ_DATA_GFX_H_
+#define _ASDJ_DATA_GFX_H_
 
-#include "../../gba/gba.h"
+#include "../gfx/font_8x8.h"
+#include "../gfx/smallfnt_4x4.h"
+#include "../gfx/smallfnt_8x4.h"
 
-extern const u16 PALETTE_DEFAULT[16] __attribute__((aligned(4))) __attribute__((visibility("hidden")));
-extern const u16 PALETTE_DEFAULT2[16] __attribute__((aligned(4))) __attribute__((visibility("hidden")));
-extern const u16 PALETTE_GREYSCALE[16] __attribute__((aligned(4))) __attribute__((visibility("hidden")));
-extern const u16 PALETTE_MONO[16] __attribute__((aligned(4))) __attribute__((visibility("hidden")));
-extern const u16 PALETTE_TEXT[16] __attribute__((aligned(4))) __attribute__((visibility("hidden")));
-
-#endif /* _PALETTES_H_ */
+#endif /* _ASDJ_DATA_GFX_H_ */
 
 // EOF
