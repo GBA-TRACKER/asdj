@@ -48,6 +48,7 @@ typedef struct tagSAMPLE_HDR
 {
 	SAVE_HDRID hdrId; // ID string is "ASDjSamp\0". This is header v0x00.
 	u16 uFlags; // Contains flags about the sample content.
+	s8 sTranspose; // Transpose sample up and down.
 	u32 iLoopStart; // Sample index of loop start (ignored if !(uFlags & SAMPF_LOOP)).
 	u32 iLoopEnd; // Sample index of loop end (ignored if !(uFlags & SAMPF_LOOP)).
 	u32 cSamples; // Contains total count of samples (aka sample length).
