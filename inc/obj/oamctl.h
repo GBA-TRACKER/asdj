@@ -35,14 +35,12 @@
 extern const u8 g_cSprites;
 
 // Declare functions defined in module:
-UPoint2D8 moveSprite (POAM_ENTRY pSprite, const s8 x, const s8 y);
-void setSpritePos (POAM_ENTRY pSprite, const u8 x, const u8 y);
-UPoint2D8 getSpritePos (const POAM_ENTRY pSprite);
+UPoint2D8 moveSprite (volatile POAM_ENTRY pSprite, const s8 x, const s8 y);
+void setSpritePos (volatile POAM_ENTRY pSprite, const u8 x, const u8 y);
+UPoint2D8 getSpritePos (volatile POAM_ENTRY pSprite);
 
 void copyAttrToOAM (const POAM_ENTRY pSprite, const u8 iIndex);
 void copySpritesToOAM (const POAM_ENTRY pSprite);
-
-// void copySpriteData (const pu8 pData, const u16 iIndex);
 
 #endif /* _OAMCTL_H_ */
 

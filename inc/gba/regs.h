@@ -38,7 +38,7 @@
 
 // Define memory ranges:
 // TODO: Maybe move memory ranges into their own file; something like inc/gba/mem.h perhaps?
-#define PALRAM ((pu16) 0x05000000) // Palette memory base address.
+/* #define PALRAM ((pu16) 0x05000000) // Palette memory base address.
 #define VRAM ((pu8) 0x06000000) // Video memory base address.
 #define OAM ((POAM_ENTRY) 0x07000000) // Object Attribute Memory base address.
 #define SRAM ((pu8) 0x0E000000) // SRAM base address.
@@ -47,7 +47,15 @@
 #define OBJ_PalMem ((pu16) 0x05000200) // Sprite palette.
 
 #define OBJ_Data ((pu8) 0x06010000) // Bitmapped sprite data.
-#define OAM_Memory ((POAM_ENTRY) 0x07000000) // Sprite co-ords, size, etc (1Kb total).
+#define OAM_Memory ((POAM_ENTRY) 0x07000000) // Sprite co-ords, size, etc (1Kb total). */
+
+#define MEM_IO ((pu8) 0x04000000)
+#define MEM_PAL ((pu16) 0x05000000)
+#define MEM_PAL_BG ((pu16) 0x05000000)
+#define MEM_PAL_OBJ ((pu16) 0x05000200)
+#define MEM_VRAM ((pu16) 0x06000000)
+#define MEM_VRAM_OBJ ((pu16) 0x06010000)
+#define MEM_OAM ((pu16) 0x07000000)
 
 #endif /* GBA_HEAD_REGS */
 

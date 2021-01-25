@@ -28,16 +28,15 @@
 #include <stdlib.h>
 #include <string.h>
 
-// Shared module level variables:
-// OAM_ENTRY s_pSprite[128]; // Temporary buffer for all sprites attributes.
-
 // Main routine:
 int main () {
 	
 	// Initialize:
 	doInit();
 	
-	OAM_ENTRY oeCursor;
+	RGB_COLOR rgbTemp = {
+		0, 0, 0
+	};
 	
 	// Main loop code:
 	while(1) {
@@ -45,11 +44,14 @@ int main () {
 		// Wait for a frame to be drawn.
 		waitForVSync();
 		
-		// Copy the temporary sprite buffer to OAM.
-		copyAttrToOAM(&oeCursor, 0);
-		
 		// Process user input.
-		doKeyInput(&oeCursor);
+		doKeyInput();
+		
+		rgbTemp.uRed += 1;
+		rgbTemp.uGreen += 1;
+		rgbTemp.uBlue += 1;
+		MEM_PAL_BG[0] = makeColSpec(&rgbTemp);
+		
 	}
 	
 	return EXIT_SUCCESS;
@@ -58,29 +60,16 @@ int main () {
 
 ERRORID doInit () {
 	
+	// Initialize OAM.
+	u8 iObject;
+	for (iObject = 0; iObject < g_cSprites; iObject++)
+		setSpritePos((volatile POAM_ENTRY) &MEM_OAM[iObject * (sizeof(OAM_ENTRY) / 2)], SCREEN_WIDTH, SCREEN_HEIGHT);
+	
 	// Set video mode.
 	REG_DISPCNT = (u16)(MODE_0 | BG0_ENABLE | OBJ_ENABLE | OBJ_MAP_1D);
 	
 	// Set background 0 mode.
 	REG_BG0CNT = (u16)(BG_PRIORITY(3) | BG_CHARBASE(0) | BG_SCREENBASE(8) | BG_SCREENSIZE(0));
-	
-	
-	// Setup temporary OAM buffer:
-	// Clear temporary buffer.
-	/* memset(s_pSprite, 0, (g_cSprites * sizeof(OAM_ENTRY)));
-	
-	// Fill it with default values.
-	u8 iSprite;
-	for (iSprite = 0; iSprite < g_cSprites; iSprite++) {
-		
-		// Hide all sprites offscreen.
-		setSpritePos(&s_pSprite[iSprite], SCREEN_WIDTH, SCREEN_HEIGHT);
-		
-		// Setup some default attributes.
-		s_pSprite[iSprite].uAttr0 |= (ATR0_COLOR16 | ATR0_SQUARE);
-		s_pSprite[iSprite].uAttr1 |= (ATR1_SIZE8);
-		s_pSprite[iSprite].uAttr2 |= (ATR2_PRIORITY(0) | ATR2_PALETTE(0));
-	} */
 	
 	// Setup palettes:
 	// Copy object palettes.
@@ -99,48 +88,56 @@ ERRORID doInit () {
 	
 	// Copy tile data:
 	// Copy object tile data.
-	//copySpriteData((const pu8)SPRITE_CURSOR, 0);
 	copyObjTile((const pu8)SPRITE_CURSOR, 0);
 	
-	memcpy(VRAM + 32, SMALLFONT_4X4Tiles, SMALLFONT_4X4TilesLen);
-	memcpy((VRAM + 32 + SMALLFONT_4X4TilesLen), SMALLFONT_8X4Tiles, SMALLFONT_8X4TilesLen);
-	memcpy((VRAM + 32 + SMALLFONT_4X4TilesLen + SMALLFONT_8X4TilesLen), FONT_8X8Tiles, FONT_8X8TilesLen);
+	// Copy background tile data.
+	u16 uOffset = 16;
+	memcpy(MEM_VRAM + uOffset, SMALLFONT_4X4Tiles, SMALLFONT_4X4TilesLen);
+	uOffset += (SMALLFONT_4X4TilesLen / 2);
+	
+	memcpy(MEM_VRAM + uOffset, SMALLFONT_8X4Tiles, SMALLFONT_8X4TilesLen);
+	uOffset += (SMALLFONT_8X4TilesLen / 2);
+	
+	memcpy(MEM_VRAM + uOffset, FONT_8X8Tiles, FONT_8X8TilesLen);
+	uOffset = (FONT_8X8TilesLen / 2);
 	
 	return ERR_SUCCESS;
 	
 }
 
 // Read and process user's key input.
-void doKeyInput (POAM_ENTRY poeCursor) {
+static inline void doKeyInput () {
 	
 	static u16 uKeyState;
 	static Point2D8 xyDelta;
 	
 	// Read key register
-	uKeyState = (~REG_KEYINPUT & KEY_MASK);
-	
-	// Clear the cursor position's delta.
-	memset(&xyDelta, 0, sizeof(Point2D8));
-	
-	// Disallow opposing inputs.
-	if (uKeyState & (KEY_RIGHT | KEY_LEFT)) return;
-	if (uKeyState & (KEY_UP | KEY_DOWN)) return;
-	
-	// Move the cursor based on the dpad's state.
-	if (uKeyState & KEY_RIGHT) xyDelta.x = 1;
-	if (uKeyState & KEY_LEFT) xyDelta.x = -1;
-	if (uKeyState & KEY_UP) xyDelta.y = 1;
-	if (uKeyState & KEY_DOWN) xyDelta.y = -1;
-	
-	moveSprite(poeCursor, xyDelta.x, xyDelta.y);
+	if ((uKeyState = (~REG_KEYINPUT & KEY_MASK))) {
+		
+		// Clear the cursor position's delta.
+		memset(&xyDelta, 0, sizeof(Point2D8));
+		
+		// Disallow opposing inputs.
+		if (uKeyState & (KEY_RIGHT | KEY_LEFT)) return;
+		if (uKeyState & (KEY_UP | KEY_DOWN)) return;
+		
+		// Move the cursor based on the dpad's state.
+		if (uKeyState & KEY_RIGHT) xyDelta.x = 1;
+		if (uKeyState & KEY_LEFT) xyDelta.x = -1;
+		if (uKeyState & KEY_UP) xyDelta.y = 1;
+		if (uKeyState & KEY_DOWN) xyDelta.y = -1;
+		
+		moveSprite((volatile POAM_ENTRY)&MEM_OAM[0], xyDelta.x, xyDelta.y);
+	}
 	
 }
 
 // Waits for VSync.
 static inline void waitForVSync () {
 	
-	while(!(REG_DISPSTAT & VBLANK));
-	while(REG_VCOUNT < SCREEN_HEIGHT);
+	//while(!(REG_DISPSTAT & VBLANK));
+	//while(REG_VCOUNT >= SCREEN_HEIGHT); // Skip the rest of current vblank.
+	//while(REG_VCOUNT < SCREEN_HEIGHT); // Wait until next vblank.
 	
 }
 

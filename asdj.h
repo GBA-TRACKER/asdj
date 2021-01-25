@@ -46,7 +46,7 @@
 
 // Declare functions defined in main module:
 ERRORID doInit ();
-void doKeyInput (POAM_ENTRY poeCursor);
+static inline void doKeyInput ();
 static inline void waitForVSync ();
 
 #endif /* _ASDJ_H_ */
