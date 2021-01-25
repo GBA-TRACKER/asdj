@@ -88,12 +88,14 @@ ERRORID doInit () {
 	copyObjPalette16((const pu16)PALETTE_DEFAULT2, 1);
 	copyObjPalette16((const pu16)PALETTE_GREYSCALE, 2);
 	copyObjPalette16((const pu16)PALETTE_MONO, 3);
+	copyObjPalette16((const pu16)PALETTE_TEXT, 4);
 	
 	// Copy background palettes.
 	copyBgPalette16((const pu16)PALETTE_DEFAULT, 0);
 	copyBgPalette16((const pu16)PALETTE_DEFAULT2, 1);
 	copyBgPalette16((const pu16)PALETTE_GREYSCALE, 2);
 	copyBgPalette16((const pu16)PALETTE_MONO, 3);
+	copyBgPalette16((const pu16)PALETTE_TEXT, 4);
 	
 	// Copy tile data:
 	// Copy object tile data.
@@ -101,7 +103,8 @@ ERRORID doInit () {
 	copyObjTile((const pu8)SPRITE_CURSOR, 0);
 	
 	memcpy(VRAM + 32, SMALLFONT_4X4Tiles, SMALLFONT_4X4TilesLen);
-	memcpy((VRAM + SMALLFONT_4X4TilesLen + 32), SMALLFONT_8X4Tiles, SMALLFONT_8X4TilesLen);
+	memcpy((VRAM + 32 + SMALLFONT_4X4TilesLen), SMALLFONT_8X4Tiles, SMALLFONT_8X4TilesLen);
+	memcpy((VRAM + 32 + SMALLFONT_4X4TilesLen + SMALLFONT_8X4TilesLen), FONT_8X8Tiles, FONT_8X8TilesLen);
 	
 	return ERR_SUCCESS;
 	
@@ -134,7 +137,7 @@ void doKeyInput (POAM_ENTRY poeCursor) {
 }
 
 // Waits for VSync.
-void waitForVSync () {
+static inline void waitForVSync () {
 	
 	while(!(REG_DISPSTAT & VBLANK));
 	while(REG_VCOUNT < SCREEN_HEIGHT);
