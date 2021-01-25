@@ -56,7 +56,7 @@ typedef struct tagRGB_COLOR
 	u8 uRed;
 	u8 uGreen;
 	u8 uBlue;
-} RGB_COLOR, *PRGB_COLOR;
+} __attribute__((packed, aligned(4))) RGB_COLOR, *PRGB_COLOR;
 
 // OAM Entry:
 typedef struct tagOAM_ENTRY
@@ -65,7 +65,7 @@ typedef struct tagOAM_ENTRY
 	u16 uAttr1;
 	u16 uAttr2;
 	u16 uAttr3;
-} OAM_ENTRY, *POAM_ENTRY;
+} __attribute__((packed, aligned(4))) OAM_ENTRY, *POAM_ENTRY;
 
 // Sprite rotation data:
 typedef struct tagROT_DATA
@@ -78,7 +78,7 @@ typedef struct tagROT_DATA
 	u16 uPc;
 	u16 uFiller4[3];
 	u16 uPd;
-} ROT_DATA, *PROT_DATA;
+} __attribute__((packed, aligned(4))) ROT_DATA, *PROT_DATA;
 
 #endif /* GBA_HEAD_TYPES */
 
