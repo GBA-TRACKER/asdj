@@ -37,6 +37,7 @@
 #include "inc/obj/oamctl.h"
 #include "inc/obj/palctl.h"
 #include "inc/obj/tilectl.h"
+#include "inc/obj/timerctl.h"
 #include "inc/obj/saves.h"
 
 // Include data headers:

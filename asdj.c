@@ -47,9 +47,7 @@ int main () {
 		// Process user input.
 		doKeyInput();
 		
-		rgbTemp.uRed += 1;
-		rgbTemp.uGreen += 1;
-		rgbTemp.uBlue += 1;
+		if (rgbTemp.uRed++ > 0x1F) rgbTemp.uRed = 0;
 		MEM_PAL_BG[0] = makeColSpec(&rgbTemp);
 		
 	}
