@@ -59,7 +59,7 @@ ARCH     =  -mthumb -mthumb-interwork
 SPECS    =  -specs=gba.specs
 
 CFLAGS   =  -g -Wall -O3\
-	-fomit-frame-pointer -ffast-math -fno-strict-aliasing\
+	-fomit-frame-pointer -ffast-math -fno-strict-aliasing -fshort-enums\
 	-mcpu=arm7tdmi -mtune=arm7tdmi \
 	${ARCH}
 
